@@ -3,7 +3,7 @@ import React from 'react'
 const Pricing = ({ data }) => {
     const { title, description, prices, pricesDescriptions } = data
     return (
-        <div className='bg-[#E7E1D8] px-16 py-48 '>
+        <div id='Pricing' className='bg-[#E7E1D8] px-16 py-48 '>
             <div className='flex flex-row items-center justify-between '>
                 <h1 className='text-[8.5rem] font-normal leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-8px] uppercase'>{title}</h1>
                 <div className=' w-[50%] flex flex-col gap-5'>

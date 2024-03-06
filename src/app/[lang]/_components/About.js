@@ -6,7 +6,7 @@ function About({ data }) {
 
     const { title, description, numbers, asset } = data
     return (
-        <div className='bg-[#E7E1D8] flex flex-row justify-between pl-16 py-48 gap-24'>
+        <div id='About' className='bg-[#E7E1D8] flex flex-row justify-between pl-16 py-48 gap-24'>
             <div className='flex flex-col w-[50%] pr-24'>
                 <h1 className='text-[8.5rem] w-full font-normal leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-8px] uppercase'>{title}</h1>
                 <p className='mt-12 font-normal text-black'>{description}</p>

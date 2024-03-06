@@ -15,7 +15,7 @@ const Navbar = ({ data }) => {
           </Link>
         </div>
         <div className='flex flex-row items-center gap-8'>
-          {links?.thead?.map((link) => <p className='text-xs font-medium uppercase cursor-pointer text-secondary hover:underline underline-offset-1' key={link?.value}>{link?.value}</p>)}
+          {links?.thead?.map((link) => <Link href={`#${link.value}`} key={link?.value}><p className='text-xs font-medium uppercase cursor-pointer text-secondary hover:underline underline-offset-1' >{link?.value}</p></Link>)}
         </div>
         <div className="hidden lg:flex nav__item">
 

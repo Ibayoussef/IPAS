@@ -4,7 +4,7 @@ import Image from 'next/image'
 const Companies = ({ data }) => {
     const { title, description, companylogos } = data
     return (
-        <div className='flex flex-col items-center justify-center w-full h-full px-64 text-center py-28'>
+        <div id='Worked with' className='flex flex-col items-center justify-center w-full h-full px-64 text-center py-28'>
             <div className='h-px w-28 bg-secondary'></div>
             <p className='text-white text-base font-normal leading-5 w-[60%] mt-5'>{description}</p>
             <h4 className='mt-20 uppercase text-[0.65rem] tracking-[0.8rem] text-secondary'>{title}</h4>

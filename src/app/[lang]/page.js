@@ -18,7 +18,7 @@ const getLandingPageData = async (lang) => {
   const {
     NavbarSection,
     Hero, Services, Pricing, Testimonials,
-    About, Companies
+    About, Companies, Contact
   } = storyData.story.content;
 
   return {
@@ -46,7 +46,7 @@ export default async function Home({ params: { lang } }) {
       <Testimonials data={storyData.testimonials} />
       <About data={storyData.about} />
       <Contact data={storyData.contact} />
-      <Footer />
+      <Footer data={storyData.nav_section} />
     </div>
   );
 }
