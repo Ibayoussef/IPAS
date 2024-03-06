@@ -37,7 +37,7 @@ export default async function Home({ params: { lang } }) {
   const storyData = await getLandingPageData(lang);
 
   return (
-    <div className='bg-primary '>
+    <div className={`bg-primary ${lang === 'ar' ? 'rtl' : ''}`}>
       <Navbar data={storyData.nav_section} />
       <Hero data={storyData.hero} />
       <Services data={storyData.services} />
