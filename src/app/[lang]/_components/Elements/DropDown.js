@@ -22,12 +22,12 @@ export const Dropdown = ({ title, description, img }) => {
             </svg>
         }
     </div>
-        {open && <div className='flex flex-row gap-40 py-8 border-b border-secondary'>
-            <div className='w-1/2 h-1/2'>
+        {open && <div className='flex flex-row flex-wrap gap-8 py-8 border-b lg:gap-40 border-secondary'>
+            <div className='w-full lg:w-1/2 sm:h-[500px] lg:h-1/2'>
                 <Image src={img} className='w-full h-full' alt={'service img'} width={1000} height={1000} />
             </div>
 
-            <p className='text-black text-base font-normal leading-5 w-[40%]'>
+            <p className='text-black text-base font-normal leading-5 w-full lg:w-[40%]'>
                 <div>{firstPart}.</div>
                 <br />
                 <div>{secondPart}.</div>

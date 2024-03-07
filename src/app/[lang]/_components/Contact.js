@@ -13,7 +13,7 @@ function Contact({ data }) {
                     <div className='w-40 h-px bg-secondary'></div>
                     <p className='font-["Montserrat"] text-base text-white'>{description}</p>
                 </div>
-                <div className='grid w-full grid-cols-3 gap-9'>
+                <div className='grid w-full grid-cols-1 sm:grid-cols-3 gap-9'>
                     {inputs.thead.map((p, i) => i !== inputs.thead.length - 1 && <Input key={p.value} label={p.value} />)}
                 </div>
                 <Input label={inputs.thead[inputs.thead.length - 1].value} />

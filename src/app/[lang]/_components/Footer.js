@@ -4,13 +4,13 @@ import Image from "next/image";
 function Footer({ data }) {
     const { logo, phone, email, links } = data;
     return (
-        <nav className="relative flex flex-wrap items-center justify-between w-full px-20 mt-28 lg:justify-between ">
+        <nav className="relative flex flex-col flex-wrap justify-between w-full px-20 sm:items-center sm:flex-row gap-9 mt-28 lg:justify-between ">
             <div className="flex items-center justify-between h-12 w-fit bg-primary lg:w-auto">
                 <Link className='object-contain w-full h-full' href="/">
                     <Image className='object-contain w-full h-full' src={logo?.filename} width={100} height={100} alt="logo" />
                 </Link>
             </div>
-            <div className='flex flex-row items-center gap-8'>
+            <div className='flex flex-col gap-8 sm:items-center sm:flex-row'>
                 {links?.thead?.map((link) => <Link href={`#${link.value}`} key={link?.value}><p className='text-xs font-medium uppercase cursor-pointer text-secondary hover:underline underline-offset-1' >{link?.value}</p></Link>)}
             </div>
             <div className='flex flex-col w-full gap-3 mb-7 mt-28'>
