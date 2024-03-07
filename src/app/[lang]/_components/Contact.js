@@ -20,7 +20,7 @@ function Contact({ data }) {
                 <p className='text-secondary mt-16  font-semibold tracking-[-1px] cursor-pointer'>{sendButton} &#10141;</p>
             </div>
             <div>
-                <Image className='w-full h-full' src={asset.filename} alt={'contact img'} width={1000} height={1000} />
+                <Image className='hidden w-full h-full lg:block' src={asset.filename} alt={'contact img'} width={1000} height={1000} />
 
             </div>
 

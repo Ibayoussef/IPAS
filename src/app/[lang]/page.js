@@ -38,7 +38,7 @@ export default async function Home({ params: { lang } }) {
 
   return (
     <div className={`bg-primary ${lang === 'ar' ? 'rtl' : ''}`}>
-      <Navbar data={storyData.nav_section} />
+      <Navbar lang={lang} data={storyData.nav_section} />
       <Hero data={storyData.hero} />
       <Services data={storyData.services} />
       <Companies data={storyData.companies} />

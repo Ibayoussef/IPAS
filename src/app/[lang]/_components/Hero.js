@@ -7,7 +7,7 @@ function Hero({ data }) {
     const { bigText, smallText, heroImg, buttonText, description } = data
 
     return (
-        <div className='relative flex items-end justify-between w-full px-16 py-36'>
+        <div className='relative flex flex-wrap items-end justify-between w-full gap-12 px-16 py-36'>
             <div className='relative z-50 flex w-[75rem] flex-col gap-5'>
                 <p className='text-[0.65rem] font-bold text-secondary'>{smallText}</p>
                 <h1 className='text-[8.5rem] font-normal leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-8px] uppercase'>{bigText}</h1>
