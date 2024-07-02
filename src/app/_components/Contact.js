@@ -2,10 +2,9 @@
 import React from 'react'
 import Image from 'next/image'
 import Input from './Elements/Input'
-function Contact({ data,links,lang }) {
-  const arabic = lang === 'ar'
+function Contact({ data,links }) {
     const { asset, title, description, sendButton, inputs } = data
-    const {value} = links.thead[4]
+    const value = links[4]
     return (
         <div id={value} className='flex flex-row'>
             <div className='flex flex-col w-full gap-8 px-20 py-28'>
@@ -15,15 +14,13 @@ function Contact({ data,links,lang }) {
                     <p className='font-["Montserrat"] text-base text-white'>{description}</p>
                 </div>
                 <div className='grid w-full grid-cols-1 sm:grid-cols-3 gap-9'>
-                    {inputs.thead.map((p, i) => i !== inputs.thead.length - 1 && <Input key={p.value} label={p.value} />)}
+                    {inputs.map((p, i) => i !== inputs.length - 1 && <Input key={p} label={p} />)}
                 </div>
-                <Input label={inputs.thead[inputs.thead.length - 1].value} />
-                <p className='text-secondary mt-16 text-base  font-semibold tracking-[-1px] cursor-pointer'>{sendButton} <span  dangerouslySetInnerHTML={{
-        __html: ` ${arabic ? "←" : "→"}`
-      }}/></p>
+                <Input label={inputs[inputs.length - 1]} />
+                <p className='text-secondary mt-16 text-base  font-semibold tracking-[-1px] cursor-pointer'>{sendButton} →</p>
             </div>
             <div>
-                <Image className='hidden w-full h-full lg:block' src={asset.filename} alt={'contact img'} width={1000} height={1000} />
+                <Image className='hidden w-full h-full lg:block' src={asset} alt={'contact img'} width={1000} height={1000} />
 
             </div>
 

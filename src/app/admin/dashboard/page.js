@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { data as initialData } from '../../data';
+import { data as initialData,updateData } from '../../data';
 import NavSection from './components/NavSection';
 import HeroSection from './components/HeroSection';
 import ServicesSection from './components/ServicesSection';
@@ -9,7 +9,6 @@ import TestimonialsSection from './components/TestimonialsSection';
 import AboutSection from './components/AboutSection';
 import CompaniesSection from './components/CompaniesSection';
 import ContactSection from './components/ContactSection';
-
 export default function Dashboard() {
   const [data, setData] = useState(initialData);
 
@@ -20,11 +19,26 @@ export default function Dashboard() {
     }));
   };
 
-  const handleSave = () => {
-    // Here you would typically send the data to your backend
-    console.log('Saving data:', data);
-    const dataToSave = `export const data = ${JSON.stringify(data, null, 2)}`;
-    alert('Data saved successfully!');
+  const handleSave = async () => {
+    try {
+      const response = await fetch('/api/save-data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save data');
+      }
+
+      console.log('Saving data:', data);
+      alert('Data saved successfully!');
+    } catch (error) {
+      console.error('Error saving data:', error);
+      alert('Error saving data. Please try again.');
+    }
   };
 
   return (

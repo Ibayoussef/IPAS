@@ -2,8 +2,8 @@ import React from 'react'
 import { Dropdown } from './Elements/DropDown'
 
 function Services({ data,links }) {
-    const { Title, description, dropdownContect, dropdownImgs } = data
-    const {value} = links.thead[0]
+    const { Title, description, dropdownContent } = data
+    const value = links[0]
    
     return (
         <div id={value} className='bg-[#E7E1D8] px-5 sm:px-16 py-48 '>
@@ -14,10 +14,10 @@ function Services({ data,links }) {
             </div>
 
             <div className='mt-12'>
-                {dropdownContect?.thead?.map((content, index) => <Dropdown key={content.value}
-                    title={content.value}
-                    description={dropdownContect?.tbody[0]?.body?.[index]?.value}
-                    img={dropdownImgs?.[0]?.filename}
+                {dropdownContent?.map((content, index) => <Dropdown key={content.title}
+                    title={content.title}
+                    description={content.description}
+                    img={content.img}
                 />)}
             </div>
         </div>

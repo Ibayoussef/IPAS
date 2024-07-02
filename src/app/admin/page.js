@@ -19,7 +19,7 @@ export default function LoginPage() {
 
     if (user) {
       // Successful login
-      router.push('/dashboard'); // Redirect to dashboard
+      router.push('/admin/dashboard'); // Redirect to dashboard
     } else {
       setError('Invalid username or password');
     }

@@ -43,9 +43,9 @@ function Testimonials({ data }) {
                         swiper.navigation.update();
                     }}
                 >
-                    {testi.thead.map((p, i) => <SwiperSlide key={p.value}><div className='w-[99%] h-full p-8 border border-[#AA9A8180]'>
-                        <p className='font-normal text-left'>{testi.tbody[0].body[i].value}</p>
-                        <p className='text-left border-t border-[#AA9A8166] mt-8 pt-8 uppercase text-[0.65rem] tracking-[0.8rem] text-secondary'>{p.value}</p>
+                    {testi.map((p, i) => <SwiperSlide key={p.title}><div className='w-[99%] h-full p-8 border border-[#AA9A8180]'>
+                        <p className='font-normal text-left'>{p.description}</p>
+                        <p className='text-left border-t border-[#AA9A8166] mt-8 pt-8 uppercase text-[0.65rem] tracking-[0.8rem] text-secondary'>{p.title}</p>
                     </div>
                     </SwiperSlide>)}
 
