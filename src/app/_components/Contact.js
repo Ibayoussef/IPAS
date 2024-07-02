@@ -23,7 +23,7 @@ function Contact({ data,links }) {
                             className="ml-2"
                             variants={{
                                 rest: { x: 0 },
-                                hover: { x: 10 }
+                                hover: { x: 5 }
                             }}
                             transition={{ type: "spring", stiffness: 400, damping: 10 }}
                         >
@@ -31,7 +31,6 @@ function Contact({ data,links }) {
                         </motion.span></p>
                  
                 </motion.div>
-                <p className='text-secondary mt-16 text-base  font-semibold tracking-[-1px] cursor-pointer'>{sendButton} →</p>
             </div>
             <div>
                 <Image className='hidden w-full h-full lg:block' src={asset} alt={'contact img'} width={1000} height={1000} />

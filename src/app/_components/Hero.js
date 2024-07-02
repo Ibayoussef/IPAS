@@ -24,7 +24,7 @@ function Hero({ data, links }) {
                             className="ml-2"
                             variants={{
                                 rest: { x: 0 },
-                                hover: { x: 10 }
+                                hover: { x: 5 }
                             }}
                             transition={{ type: "spring", stiffness: 400, damping: 10 }}
                         >
