@@ -13,6 +13,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  scroll-behavior: smooth;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,7 +26,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-
+  scroll-behavior: smooth;
    
 
   background: linear-gradient(
@@ -43,9 +44,23 @@ body {
   }
 }
 @layer base {
+
   html {
     font-size: calc(7px + (17 - 11) * ((100vw - 320px) / (1920 - 320)));
       font-family: "Montserrat", sans-serif;
   }
-
+  
+    .rtl {
+      .text-xs {
+        font-size: 1.5rem !important;
+      }
+      .text-base {
+        font-size: 1.8rem !important;
+        line-height: 2rem !important
+      }
+      .text-\[0\.65rem\] {
+        font-size: 1.5rem !important;
+      }
+    }
+  
 }

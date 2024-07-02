@@ -2,22 +2,16 @@
 import React from 'react'
 import Image from 'next/image'
 
-function About({ data }) {
+function About({ data,links }) {
 
-    const { title, description, numbers, asset } = data
+    const { title, description, asset } = data
+    const {value} = links.thead[3]
     return (
-        <div id='About' className='bg-[#E7E1D8] flex flex-row flex-wrap lg:flex-nowrap justify-between lg:px-0 lg:pl-16 px-16 py-48 gap-24'>
+        <div id={value} className='bg-[#E7E1D8] flex flex-row flex-wrap lg:flex-nowrap justify-between lg:px-0 lg:pl-16 px-16 py-48 gap-24'>
             <div className='flex flex-col lg:w-[50%] w-full pr-24'>
                 <h1 className='text-[8.5rem] w-full font-normal leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-8px] uppercase'>{title}</h1>
-                <p className='mt-12 font-normal text-black'>{description}</p>
-                <div className='flex flex-row flex-wrap items-center w-full gap-12 mt-8 lg:justify-center'>
-                    {numbers.thead.map((p, index) => <div className='w-36' key={p.value}>
-                        <h4 className='uppercase text-[0.65rem] tracking-[0.3rem] text-secondary'>{p.value}</h4>
-                        <p className='text-[2.5rem] font-normal mt-8 text-secondary font-["Scheherazade_New"] tracking-[px] uppercase'>{numbers.tbody[0].body[index].value}</p>
-
-                    </div>)}
-
-                </div>
+                <p className='mt-12 text-base font-normal text-black'>{description}</p>
+           
             </div>
             <div className='relative'>
                 <Image src={asset.filename} alt='guy picture' width={1000} height={1000} />

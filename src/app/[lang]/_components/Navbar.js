@@ -12,7 +12,7 @@ const Navbar = ({ data, lang }) => {
   return (
     <div className={`w-full border-b ${menuOpen ? 'border-primary bg-secondary' : 'border-secondary'} `}>
       <nav className="relative flex flex-wrap items-center justify-between w-full lg:justify-between">
-        <div className="flex items-center justify-between object-contain h-12 ml-20 bg-transparent w-fit lg:w-auto">
+        <div className="flex items-center justify-between object-contain h-12 bg-transparent ms-20 w-fit lg:w-auto">
           <Link className='object-contain w-full h-full' href="/">
             {menuOpen && <svg className='w-full h-full' width="59" height="32" viewBox="0 0 59 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M7.84583 19.68L0 11.8306V24.1752L7.84583 32V25.202C7.84583 25.202 7.84583 25.1977 7.84583 25.1948V19.6785V19.68Z" fill="#121B24" />
@@ -45,7 +45,7 @@ const Navbar = ({ data, lang }) => {
         {menuOpen && <div className='fixed border-t border-primary top-16 px-12 py-20 left-0 z-[999999] gap-5 flex flex-col w-full bg-secondary h-svh'>
           {links?.thead?.map((link) => <Link href={`#${link.value}`} onClick={() => setNebuOpen(false)} key={link?.value}><p className='text-[4rem] font-bold uppercase cursor-pointer text-primary  underline-offset-1' >{link?.value}</p></Link>)}
         </div>}
-        <div className='flex flex-row items-center gap-4 mr-20 lg:hidden'>
+        <div className='flex flex-row items-center gap-4 me-20 lg:hidden'>
           <div className="relative flex flex-row items-center gap-2 p-6 cursor-pointer " onClick={() => setOpen(prev => !prev)}>
             <p className={`font-semibold underline uppercase ${menuOpen ? 'text-primary' : 'text-secondary'}`}>{lang}</p>
             <svg width="7" height="5" viewBox="0 0 7 5" fill="none" xmlns="http://www.w3.org/2000/svg">
