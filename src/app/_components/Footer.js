@@ -11,7 +11,7 @@ function Footer({ data }) {
                 </Link>
             </div>
             <div className='flex flex-col gap-8 sm:items-center sm:flex-row'>
-                {links?.map((link) => <Link href={`#${link}`} key={link}><p className='text-xs font-medium uppercase cursor-pointer text-secondary hover:underline underline-offset-1' >{link}</p></Link>)}
+                {links?.map((link) => <Link href={`#${link}`} key={link}><p className='text-xs font-medium uppercase transition-all cursor-pointer hover:underline text-secondary underline-offset-1' >{link}</p></Link>)}
             </div>
             <div className='flex flex-col w-full gap-3 mb-7 mt-28'>
                 <div className='flex flex-row items-center gap-[6px]'>

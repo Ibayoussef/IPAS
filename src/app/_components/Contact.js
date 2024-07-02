@@ -2,6 +2,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Input from './Elements/Input'
+import {motion} from 'framer-motion'
 function Contact({ data,links }) {
     const { asset, title, description, sendButton, inputs } = data
     const value = links[4]
@@ -17,6 +18,19 @@ function Contact({ data,links }) {
                     {inputs.map((p, i) => i !== inputs.length - 1 && <Input key={p} label={p} />)}
                 </div>
                 <Input label={inputs[inputs.length - 1]} />
+                <motion.div whileHover="hover" initial="rest">
+                <p className='text-secondary mt-16 text-base  font-semibold tracking-[-1px] cursor-pointer'>{sendButton}   <motion.span
+                            className="ml-2"
+                            variants={{
+                                rest: { x: 0 },
+                                hover: { x: 10 }
+                            }}
+                            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                        >
+                            →
+                        </motion.span></p>
+                 
+                </motion.div>
                 <p className='text-secondary mt-16 text-base  font-semibold tracking-[-1px] cursor-pointer'>{sendButton} →</p>
             </div>
             <div>
