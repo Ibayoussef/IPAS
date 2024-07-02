@@ -18,8 +18,9 @@ function Contact({ data,links }) {
                     {inputs.map((p, i) => i !== inputs.length - 1 && <Input key={p} label={p} />)}
                 </div>
                 <Input label={inputs[inputs.length - 1]} />
-                <motion.div whileHover="hover" initial="rest">
-                <p className='text-secondary mt-16 text-base  font-semibold tracking-[-1px] cursor-pointer'>{sendButton}   <motion.span
+              
+                <motion.p whileHover="hover" initial="rest" className='text-secondary mt-16 text-base  font-semibold tracking-[-1px] cursor-pointer'>{sendButton}  
+                     <motion.span
                             className="ml-2"
                             variants={{
                                 rest: { x: 0 },
@@ -28,9 +29,10 @@ function Contact({ data,links }) {
                             transition={{ type: "spring", stiffness: 400, damping: 10 }}
                         >
                             →
-                        </motion.span></p>
+                        </motion.span>
+                        </motion.p>
                  
-                </motion.div>
+             
             </div>
             <div>
                 <Image className='hidden w-full h-full lg:block' src={asset} alt={'contact img'} width={1000} height={1000} />
