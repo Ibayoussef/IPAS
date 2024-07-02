@@ -77,7 +77,7 @@ const Navbar = ({ data, lang }) => {
             {open && <div className='absolute z-[9999] left-0 flex flex-col w-full h-fit top-16 bg-secondary'>
               <Link className='py-4 font-medium text-center text-black cursor-pointer' href="/ar">AR</Link>
               <Link className='py-4 font-medium text-center text-black cursor-pointer' href="/fr">FR</Link>
-              <Link className='py-4 font-medium text-center text-black cursor-pointer' href="/en">EN</Link>
+           
             </div>}
           </div>
           <Link
