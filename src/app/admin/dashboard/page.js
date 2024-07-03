@@ -58,7 +58,6 @@ export default function Dashboard() {
         throw new Error("Failed to save data");
       }
 
-      console.log("Saving data:", data);
       alert("Data saved successfully!");
     } catch (error) {
       console.error("Error saving data:", error);
