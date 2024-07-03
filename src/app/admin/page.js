@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { data } from "../data";
+import { setCookie } from "cookies-next";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -18,6 +19,7 @@ export default function LoginPage() {
       data.logins.username === email && data.logins.password === password;
 
     if (user) {
+      setCookie("isLoggedIn", "true", { maxAge: 60 * 60 * 24 * 7 });
       router.push("/admin/dashboard");
     } else {
       setError("Invalid username or password");

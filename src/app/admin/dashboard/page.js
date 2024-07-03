@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { data as initialData } from "../../data";
 import NavSection from "./components/NavSection";
 import HeroSection from "./components/HeroSection";
@@ -9,6 +10,7 @@ import TestimonialsSection from "./components/TestimonialsSection";
 import AboutSection from "./components/AboutSection";
 import CompaniesSection from "./components/CompaniesSection";
 import ContactSection from "./components/ContactSection";
+import { getCookie } from "cookies-next";
 
 const sections = [
   { name: "Navigation", component: NavSection, dataKey: "nav_section" },
@@ -27,7 +29,14 @@ const sections = [
 export default function Dashboard() {
   const [data, setData] = useState(initialData);
   const [activeTab, setActiveTab] = useState(0);
+  const isLoggedIn = getCookie("isLoggedIn") === "true";
+  const router = useRouter();
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push("/admin");
+    }
+  }, [router, isLoggedIn]);
   const handleDataChange = (section, newData) => {
     setData((prevData) => ({
       ...prevData,
@@ -56,7 +65,9 @@ export default function Dashboard() {
       alert("Error saving data. Please try again.");
     }
   };
-
+  if (!isLoggedIn) {
+    return;
+  }
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-100">
       <header className="bg-white shadow-lg">
