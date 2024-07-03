@@ -19,18 +19,24 @@ function Contact({ data,links }) {
                 </div>
                 <Input label={inputs[inputs.length - 1]} />
               
-                <motion.p whileHover="hover" initial="rest" className='text-secondary mt-16 text-base  font-semibold tracking-[-1px] cursor-pointer'>{sendButton}  
-                     <motion.span
-                            className="ml-2"
-                            variants={{
-                                rest: { x: 0 },
-                                hover: { x: 5 }
-                            }}
-                            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                        >
-                            →
-                        </motion.span>
-                        </motion.p>
+                <motion.p 
+  whileHover="hover" 
+  initial="rest" 
+  animate="rest"
+  className='text-secondary w-fit mt-16 text-base font-semibold tracking-[-1px] cursor-pointer'
+>
+  {sendButton}  
+  <motion.span
+    className="ml-2 inline-block"
+    variants={{
+      rest: { x: 0 },
+      hover: { x: 5 }
+    }}
+    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+  >
+    →
+  </motion.span>
+</motion.p>
                  
              
             </div>

@@ -10,7 +10,7 @@ function About({ data,links }) {
         <div id={value} className='bg-[#E7E1D8] flex flex-row flex-wrap lg:flex-nowrap justify-between lg:px-0 lg:pl-16 px-16 py-48 gap-24'>
             <div className='flex flex-col lg:w-[50%] w-full pr-24'>
                 <h1 className='text-[8.5rem] w-full font-normal leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-8px] uppercase'>{title}</h1>
-                <p className='mt-12 text-base font-normal text-black'>{description}</p>
+               {description.split('. IP').map((desc,i) => i === 1 ?<p className='mt-12 text-xl font-medium text-black'>IP {desc}</p> : <p className='mt-12 text-base font-medium text-black'>{desc}.</p>)}
            
             </div>
             <div className='relative'>

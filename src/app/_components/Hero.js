@@ -33,8 +33,9 @@ function Hero({ data, links }) {
                     </Link>
                 </motion.div>
             </div>
-            <div className='absolute top-1/2 -translate-y-1/2 e-0 w-3/4 h-[40rem]'>
-                <Image className='relative top-0 left-0 object-cover w-full h-full' src={heroImg} width={1000} height={1000} alt='hero-img' />
+            <div className='absolute top-1/2 -translate-y-1/2 right-0 w-3/4 h-[80%]'>
+            <div className='absolute z-50 w-full h-full top-0 right-0 bg-black opacity-50'></div>
+                <Image className='relative z-40 top-0 right-0 object-cover w-full h-full' src={heroImg} width={1000} height={1000} alt='hero-img' />
             </div>
         </div>
     )
