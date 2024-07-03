@@ -1,6 +1,6 @@
-"use client"
-import { useState, useRef } from 'react';
-import Image from 'next/image';
+"use client";
+import { useState, useRef } from "react";
+import Image from "next/image";
 
 export default function ServicesSection({ data, onChange }) {
   const [localData, setLocalData] = useState(data);
@@ -9,32 +9,35 @@ export default function ServicesSection({ data, onChange }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setLocalData(prev => ({
+    setLocalData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleDropdownContentChange = (index, field, value) => {
-    setLocalData(prev => ({
+    setLocalData((prev) => ({
       ...prev,
-      dropdownContent: prev.dropdownContent.map((item, i) => 
+      dropdownContent: prev.dropdownContent.map((item, i) =>
         i === index ? { ...item, [field]: value } : item
-      )
+      ),
     }));
   };
 
   const addDropdownItem = () => {
-    setLocalData(prev => ({
+    setLocalData((prev) => ({
       ...prev,
-      dropdownContent: [...prev.dropdownContent, { img: "", title: "", description: "" }]
+      dropdownContent: [
+        ...prev.dropdownContent,
+        { img: "", title: "", description: "" },
+      ],
     }));
   };
 
   const removeDropdownItem = (index) => {
-    setLocalData(prev => ({
+    setLocalData((prev) => ({
       ...prev,
-      dropdownContent: prev.dropdownContent.filter((_, i) => i !== index)
+      dropdownContent: prev.dropdownContent.filter((_, i) => i !== index),
     }));
   };
 
@@ -43,25 +46,25 @@ export default function ServicesSection({ data, onChange }) {
     if (file) {
       setIsUploading(true);
       const formData = new FormData();
-      formData.append('file', file);
-      formData.append('name', `dropdown_${index}_${Date.now()}`);
+      formData.append("file", file);
+      formData.append("name", `dropdown_${index}_${Date.now()}`);
 
       try {
-        const response = await fetch('/api/upload', {
-          method: 'POST',
+        const response = await fetch("/api/upload", {
+          method: "POST",
           body: formData,
         });
 
         if (!response.ok) {
-          throw new Error('Upload failed');
+          throw new Error("Upload failed");
         }
 
         const result = await response.json();
         const imageUrl = `/images/${result.filename}`;
-        handleDropdownContentChange(index, 'img', imageUrl);
+        handleDropdownContentChange(index, "img", imageUrl);
       } catch (error) {
-        console.error('Error uploading image:', error);
-        alert('Failed to upload image. Please try again.');
+        console.error("Error uploading image:", error);
+        alert("Failed to upload image. Please try again.");
       } finally {
         setIsUploading(false);
       }
@@ -78,88 +81,117 @@ export default function ServicesSection({ data, onChange }) {
   };
 
   return (
-    <div className="p-6 mb-6 bg-white rounded-lg shadow">
-      <h2 className="mb-4 text-2xl font-semibold">Services Section</h2>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <div>
-          <label htmlFor="Title" className="block text-sm font-medium text-gray-700">Title</label>
+    <div className="p-8 mb-8 bg-gradient-to-r from-green-100 to-teal-100 rounded-3xl shadow-lg">
+      <h2 className="mb-6 text-4xl font-bold text-green-800">
+        Services Section
+      </h2>
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="p-6 bg-white rounded-2xl shadow-md">
+          <label
+            htmlFor="Title"
+            className="block mb-2 text-xl font-semibold text-gray-700"
+          >
+            Title
+          </label>
           <input
             type="text"
             name="Title"
             id="Title"
             value={localData.Title}
             onChange={handleInputChange}
-            className="block w-full mt-1 text-black border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-green-300 rounded-xl focus:ring-green-500 focus:border-green-500"
           />
         </div>
-        <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+        <div className="p-6 bg-white rounded-2xl shadow-md">
+          <label
+            htmlFor="description"
+            className="block mb-2 text-xl font-semibold text-gray-700"
+          >
+            Description
+          </label>
           <textarea
             name="description"
             id="description"
-            rows="3"
+            rows="4"
             value={localData.description}
             onChange={handleInputChange}
-            className="block w-full mt-1 text-black border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-green-300 rounded-xl focus:ring-green-500 focus:border-green-500"
           ></textarea>
         </div>
-        <div className="col-span-2">
-          <label className="block text-sm font-medium text-gray-700">Dropdown Content</label>
-          {localData.dropdownContent.map((item, index) => (
-            <div key={index} className="grid grid-cols-3 gap-4 p-4 mt-4 border border-gray-200 rounded-md">
+      </div>
+      <div className="mt-8">
+        <h3 className="mb-4 text-2xl font-semibold text-green-800">
+          Dropdown Content
+        </h3>
+        {localData.dropdownContent.map((item, index) => (
+          <div key={index} className="p-6 mb-6 bg-white rounded-2xl shadow-md">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               <div className="col-span-1">
-                <div className="relative w-full h-32 mb-2">
+                <div className="relative w-full h-48 mb-4 overflow-hidden border-4 border-green-300 rounded-xl">
                   {item.img ? (
-                    <Image src={item.img} alt={`Dropdown ${index + 1}`} layout="fill" objectFit="cover" className="rounded-md" />
+                    <Image
+                      src={item.img}
+                      alt={`Dropdown ${index + 1}`}
+                      layout="fill"
+                      objectFit="cover"
+                    />
                   ) : (
-                    <div className="flex items-center justify-center w-full h-full bg-gray-100 rounded-md">
-                      <span className="text-gray-400">No image</span>
+                    <div className="flex items-center justify-center w-full h-full bg-gray-100">
+                      <span className="text-xl text-gray-400">No image</span>
                     </div>
                   )}
                 </div>
                 <button
                   onClick={() => triggerFileInput(index)}
-                  className="w-full px-4 py-2 text-sm text-blue-600 border border-blue-600 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="w-full px-6 py-3 text-lg font-semibold text-white bg-green-600 rounded-xl hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
                 >
-                  {item.img ? 'Change Image' : 'Upload Image'}
+                  {item.img ? "Change Image" : "Upload Image"}
                 </button>
               </div>
-              <div className="col-span-2 space-y-2">
+              <div className="col-span-2 space-y-4">
                 <input
                   type="text"
                   value={item.title}
-                  onChange={(e) => handleDropdownContentChange(index, 'title', e.target.value)}
+                  onChange={(e) =>
+                    handleDropdownContentChange(index, "title", e.target.value)
+                  }
                   placeholder="Title"
-                  className="block w-full text-black border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="block w-full px-4 py-3 text-lg text-black border-2 border-green-300 rounded-xl focus:ring-green-500 focus:border-green-500"
                 />
                 <textarea
                   value={item.description}
-                  onChange={(e) => handleDropdownContentChange(index, 'description', e.target.value)}
+                  onChange={(e) =>
+                    handleDropdownContentChange(
+                      index,
+                      "description",
+                      e.target.value
+                    )
+                  }
                   placeholder="Description"
-                  rows="3"
-                  className="block w-full text-black border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  rows="4"
+                  className="block w-full px-4 py-3 text-lg text-black border-2 border-green-300 rounded-xl focus:ring-green-500 focus:border-green-500"
                 />
                 <button
                   onClick={() => removeDropdownItem(index)}
-                  className="px-2 py-1 text-sm text-red-600 border border-red-600 rounded-md hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                  className="px-6 py-3 text-lg font-semibold text-white bg-red-500 rounded-xl hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 transition duration-300 ease-in-out"
                 >
                   Remove Item
                 </button>
               </div>
             </div>
-          ))}
-          <button
-            onClick={addDropdownItem}
-            className="px-4 py-2 mt-4 text-sm text-blue-600 border border-blue-600 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            Add Dropdown Item
-          </button>
-        </div>
+          </div>
+        ))}
+        <button
+          onClick={addDropdownItem}
+          className="px-8 py-4 mt-6 text-xl font-bold text-white bg-green-600 rounded-xl hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+        >
+          Add Dropdown Item
+        </button>
       </div>
-      <div className="mt-4">
+      <div className="mt-8 text-center">
         <button
           onClick={handleSave}
-          className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="px-10 py-4 text-2xl font-bold text-white bg-gradient-to-r from-green-600 to-teal-600 rounded-xl hover:from-green-700 hover:to-teal-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
         >
           Save Services Section
         </button>
@@ -167,7 +199,9 @@ export default function ServicesSection({ data, onChange }) {
       <input
         type="file"
         ref={fileInputRef}
-        onChange={(e) => handleImageUpload(e, fileInputRef.current.dataset.index)}
+        onChange={(e) =>
+          handleImageUpload(e, fileInputRef.current.dataset.index)
+        }
         accept="image/*"
         className="hidden"
       />

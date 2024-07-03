@@ -1,6 +1,6 @@
-"use client"
-import { useState, useRef } from 'react';
-import Image from 'next/image';
+"use client";
+import { useState, useRef } from "react";
+import Image from "next/image";
 
 export default function CompaniesSection({ data, onChange }) {
   const [localData, setLocalData] = useState(data);
@@ -9,9 +9,9 @@ export default function CompaniesSection({ data, onChange }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setLocalData(prev => ({
+    setLocalData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -23,38 +23,38 @@ export default function CompaniesSection({ data, onChange }) {
       const uploadedUrls = [];
       for (let i = 0; i < files.length; i++) {
         const formData = new FormData();
-        formData.append('file', files[i]);
-        formData.append('name', `company${i}`);
+        formData.append("file", files[i]);
+        formData.append("name", `company${i}`);
 
-        const response = await fetch('/api/upload', {
-          method: 'POST',
+        const response = await fetch("/api/upload", {
+          method: "POST",
           body: formData,
         });
 
         if (!response.ok) {
-          throw new Error('Upload failed');
+          throw new Error("Upload failed");
         }
 
         const result = await response.json();
         uploadedUrls.push(`/images/${result.filename}`);
       }
 
-      setLocalData(prev => ({
+      setLocalData((prev) => ({
         ...prev,
-        companylogos: [...prev.companylogos, ...uploadedUrls]
+        companylogos: [...prev.companylogos, ...uploadedUrls],
       }));
     } catch (error) {
-      console.error('Error uploading images:', error);
-      alert('Failed to upload one or more images. Please try again.');
+      console.error("Error uploading images:", error);
+      alert("Failed to upload one or more images. Please try again.");
     } finally {
       setIsUploading(false);
     }
   };
 
   const removeImage = (index) => {
-    setLocalData(prev => ({
+    setLocalData((prev) => ({
       ...prev,
-      companylogos: prev.companylogos.filter((_, i) => i !== index)
+      companylogos: prev.companylogos.filter((_, i) => i !== index),
     }));
   };
 
@@ -67,55 +67,72 @@ export default function CompaniesSection({ data, onChange }) {
   };
 
   return (
-    <div className="p-6 mb-6 bg-white rounded-lg shadow">
-      <h2 className="mb-4 text-2xl font-semibold">Companies Section</h2>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
+    <div className="p-8 mb-8 bg-gradient-to-r from-cyan-100 to-blue-100 rounded-3xl shadow-lg">
+      <h2 className="mb-6 text-4xl font-bold text-blue-800">
+        Companies Section
+      </h2>
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="p-6 bg-white rounded-2xl shadow-md">
+          <label
+            htmlFor="title"
+            className="block mb-2 text-xl font-semibold text-gray-700"
+          >
+            Title
+          </label>
           <input
             type="text"
             name="title"
             id="title"
             value={localData.title}
             onChange={handleInputChange}
-            className="block w-full mt-1 text-black border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-blue-300 rounded-xl focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
-        <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+        <div className="p-6 bg-white rounded-2xl shadow-md">
+          <label
+            htmlFor="description"
+            className="block mb-2 text-xl font-semibold text-gray-700"
+          >
+            Description
+          </label>
           <textarea
             name="description"
             id="description"
-            rows="3"
+            rows="4"
             value={localData.description}
             onChange={handleInputChange}
-            className="block w-full mt-1 text-black border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-blue-300 rounded-xl focus:ring-blue-500 focus:border-blue-500"
           ></textarea>
         </div>
       </div>
-      <div className="mt-6">
-        <h3 className="mb-2 text-lg font-medium text-gray-900">Company Logos</h3>
-        <div className="grid grid-cols-3 gap-4 mb-4">
+      <div className="p-6 mt-8 bg-white rounded-2xl shadow-md">
+        <h3 className="mb-4 text-2xl font-semibold text-blue-800">
+          Company Logos
+        </h3>
+        <div className="grid grid-cols-2 gap-6 mb-6 md:grid-cols-3 lg:grid-cols-4">
           {localData.companylogos.map((logo, index) => (
-            <div key={index} className="relative">
-              <Image 
-                src={logo} 
-                alt={`Company logo ${index + 1}`} 
-                width={100} 
-                height={50} 
-                objectFit="contain" 
-                className="border rounded-md"
+            <div
+              key={index}
+              className="relative p-4 border-2 border-blue-200 rounded-xl"
+            >
+              <Image
+                src={logo}
+                alt={`Company logo ${index + 1}`}
+                width={150}
+                height={75}
+                objectFit="contain"
+                className="mx-auto"
               />
               <button
                 onClick={() => removeImage(index)}
-                className="absolute top-0 right-0 p-1 text-white bg-red-500 rounded-full hover:bg-red-600 focus:outline-none"
+                className="absolute top-2 right-2 w-8 h-8 text-xl text-white bg-red-500 rounded-full hover:bg-red-600 focus:outline-none transition duration-300 ease-in-out transform hover:scale-110"
               >
                 ×
               </button>
             </div>
           ))}
         </div>
-        <div>
+        <div className="text-center">
           <input
             type="file"
             ref={fileInputRef}
@@ -127,16 +144,16 @@ export default function CompaniesSection({ data, onChange }) {
           <button
             onClick={triggerFileInput}
             disabled={isUploading}
-            className="px-4 py-2 text-sm text-blue-600 border border-blue-600 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+            className="px-6 py-3 text-lg font-semibold text-white bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
           >
-            {isUploading ? 'Uploading...' : 'Upload Company Logos'}
+            {isUploading ? "Uploading..." : "Upload Company Logos"}
           </button>
         </div>
       </div>
-      <div className="mt-4">
+      <div className="mt-8 text-center">
         <button
           onClick={handleSave}
-          className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="px-10 py-4 text-2xl font-bold text-white bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl hover:from-cyan-700 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
         >
           Save Companies Section
         </button>

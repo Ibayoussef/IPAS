@@ -1,67 +1,109 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { data as initialData,updateData } from '../../data';
-import NavSection from './components/NavSection';
-import HeroSection from './components/HeroSection';
-import ServicesSection from './components/ServicesSection';
-import TestimonialsSection from './components/TestimonialsSection';
-import AboutSection from './components/AboutSection';
-import CompaniesSection from './components/CompaniesSection';
-import ContactSection from './components/ContactSection';
+import { useState } from "react";
+import { data as initialData } from "../../data";
+import NavSection from "./components/NavSection";
+import HeroSection from "./components/HeroSection";
+import ServicesSection from "./components/ServicesSection";
+import TestimonialsSection from "./components/TestimonialsSection";
+import AboutSection from "./components/AboutSection";
+import CompaniesSection from "./components/CompaniesSection";
+import ContactSection from "./components/ContactSection";
+
+const sections = [
+  { name: "Navigation", component: NavSection, dataKey: "nav_section" },
+  { name: "Hero", component: HeroSection, dataKey: "hero" },
+  { name: "Services", component: ServicesSection, dataKey: "services" },
+  {
+    name: "Testimonials",
+    component: TestimonialsSection,
+    dataKey: "testimonials",
+  },
+  { name: "About", component: AboutSection, dataKey: "about" },
+  { name: "Companies", component: CompaniesSection, dataKey: "companies" },
+  { name: "Contact", component: ContactSection, dataKey: "contact" },
+];
+
 export default function Dashboard() {
   const [data, setData] = useState(initialData);
+  const [activeTab, setActiveTab] = useState(0);
 
   const handleDataChange = (section, newData) => {
-    setData(prevData => ({
+    setData((prevData) => ({
       ...prevData,
-      [section]: newData
+      [section]: newData,
     }));
   };
 
   const handleSave = async () => {
     try {
-      const response = await fetch('/api/save-data', {
-        method: 'POST',
+      const response = await fetch("/api/save-data", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save data');
+        throw new Error("Failed to save data");
       }
 
-      console.log('Saving data:', data);
-      alert('Data saved successfully!');
+      console.log("Saving data:", data);
+      alert("Data saved successfully!");
     } catch (error) {
-      console.error('Error saving data:', error);
-      alert('Error saving data. Please try again.');
+      console.error("Error saving data:", error);
+      alert("Error saving data. Please try again.");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow">
+    <div className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-100">
+      <header className="bg-white shadow-lg">
         <div className="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <h1 className="text-4xl font-bold text-gray-900">Dashboard</h1>
         </div>
       </header>
-      <main className="py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <NavSection data={data.nav_section} onChange={(newData) => handleDataChange('nav_section', newData)} />
-          <HeroSection data={data.hero} onChange={(newData) => handleDataChange('hero', newData)} />
-          <ServicesSection data={data.services} onChange={(newData) => handleDataChange('services', newData)} />
-          <TestimonialsSection data={data.testimonials} onChange={(newData) => handleDataChange('testimonials', newData)} />
-          <AboutSection data={data.about} onChange={(newData) => handleDataChange('about', newData)} />
-          <CompaniesSection data={data.companies} onChange={(newData) => handleDataChange('companies', newData)} />
-          <ContactSection data={data.contact} onChange={(newData) => handleDataChange('contact', newData)} />
-          
+      <main className="py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="p-8 bg-white rounded-3xl shadow-xl">
+          <div className="mb-6 overflow-x-auto">
+            <div className="inline-flex space-x-2">
+              {sections.map((section, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveTab(index)}
+                  className={`px-6 py-3 text-lg font-semibold rounded-xl transition duration-300 ease-in-out ${
+                    activeTab === index
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  }`}
+                >
+                  {section.name}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="mt-8">
+            {sections.map((section, index) => (
+              <div
+                key={index}
+                className={activeTab === index ? "block" : "hidden"}
+              >
+                <section.component
+                  data={data[section.dataKey]}
+                  onChange={(newData) =>
+                    handleDataChange(section.dataKey, newData)
+                  }
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
             <button
               onClick={handleSave}
-              className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="px-10 py-4 text-2xl font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
             >
               Save All Changes
             </button>
