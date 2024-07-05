@@ -5,14 +5,14 @@ const Input = ({ label, onChange }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative ">
       <motion.p
         initial={{ y: 0, color: "#FFFFFF" }}
         animate={
           isFocused ? { y: 0, color: "#AA9A81" } : { y: 0, color: "#FFFFFF" }
         }
         transition={{ duration: 0.3 }}
-        className="text-xs uppercase absolute"
+        className="text-xs max-md:text-[8px] uppercase absolute"
       >
         {label}
       </motion.p>
@@ -22,7 +22,7 @@ const Input = ({ label, onChange }) => {
         animate={{
           background: isFocused ? "rgba(255,255,255,0.2)" : "transparent",
         }}
-        className="w-full border-0 border-b bg-transparent outline-none appearance-none text-white p-2 pt-6"
+        className="w-full border-0 max-md:text-[16px] border-b bg-transparent outline-none appearance-none text-white p-2 pt-6"
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         onChange={onChange}

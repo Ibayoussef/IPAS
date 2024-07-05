@@ -1,13 +1,15 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { AnimatedLink } from "./Elements/AnimatedLink";
 function Footer({ data }) {
   const { logo, links } = data;
   return (
-    <nav className="relative flex flex-col flex-wrap justify-between w-full px-20 sm:items-center sm:flex-row gap-9 mt-28 lg:justify-between ">
-      <div className="flex items-center justify-between h-12 w-fit bg-primary lg:w-auto">
+    <nav className="relative flex flex-col flex-wrap justify-between w-full px-20 sm:items-center sm:flex-row max-md:gap-[32px] gap-9 mt-28 lg:justify-between ">
+      <div className="flex items-center justify-between max-md:w-[87.8px] max-md:h-[48px] h-12 w-fit bg-primary lg:w-auto">
         <Link className="object-contain w-full h-full" href="/">
           <svg
+            className="max-md:w-[87.8px] max-md:h-[48px]"
             width="59"
             height="32"
             viewBox="0 0 59 32"
@@ -105,16 +107,16 @@ function Footer({ data }) {
           </svg>
         </Link>
       </div>
-      <div className="flex flex-col gap-8 sm:items-center sm:flex-row">
+      <div className="flex flex-col gap-8 max-md:gap-[16px] sm:items-center sm:flex-row">
         {links?.map((link) => (
-          <Link href={`#${link}`} key={link}>
-            <p className="text-xs font-medium uppercase transition-all cursor-pointer hover:underline text-secondary underline-offset-1">
+          <AnimatedLink href={`#${link}`} key={link}>
+            <p className="text-xs font-medium max-md:text-[12px] uppercase transition-all text-secondary">
               {link}
             </p>
-          </Link>
+          </AnimatedLink>
         ))}
       </div>
-      <div className="flex flex-col w-full gap-3 mb-7 mt-28">
+      <div className="flex max-md:mb-[12px] flex-col w-full gap-3 mb-7 mt-28">
         <div className="flex flex-row items-center gap-[6px]">
           <svg
             width="28"
@@ -184,9 +186,11 @@ function Footer({ data }) {
           </svg>
         </div>
         <div className="w-full h-px bg-secondary"></div>
-        <div className="flex flex-row items-center justify-between">
-          <p className="text-xs text-secondary">Copyright © 2006-2024</p>
-          <p className="text-xs underline text-secondary">
+        <div className="flex flex-row max-md:mt-[12px] max-md:flex-col max-md:items-start max-md:justify-start max-md:gap-[10px] items-center justify-between">
+          <p className="text-xs max-md:text-[12px] text-secondary">
+            Copyright © 2006-2024
+          </p>
+          <p className="text-xs max-md:text-[12px] underline text-secondary">
             Privacy policy - Terms of use
           </p>
         </div>

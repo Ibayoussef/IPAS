@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@motionone/utils": "^10.18.0",
     "cookies-next": "^4.2.1",
     "framer-motion": "^11.2.12",
     "fs": "^0.0.1-security",
@@ -17,7 +18,7 @@
     "react": "^18",
     "react-dom": "^18",
     "sass": "^1.71.1",
-    "swiper": "^11.0.7"
+    "swiper": "^11.1.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

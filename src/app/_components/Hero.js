@@ -10,21 +10,25 @@ function Hero({ data, links }) {
 
   return (
     <div
-      className={`relative flex flex-wrap md:h-[812px] h-full sm:h-[582px] items-start md:items-end justify-between w-full gap-12 px-16 py-[67px] md:py-[93px]`}
+      className={`relative flex lg:flex-row max-lg:flex-col flex-wrap md:h-[812px] h-full max-md:h-[582px] items-start lg:items-end max-lg:justify-start max-lg:gap-[32px]  lg:justify-between w-full lg:gap-12 px-16 py-[67px] md:py-[93px]`}
     >
-      <div className="relative z-50 flex w-[75rem] flex-col gap-5">
-        <p className="text-[0.65rem] font-bold text-secondary">{smallText}</p>
-        <h1 className='text-[8.5rem] font-normal leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-8px] uppercase'>
+      <div className="relative z-50 flex w-[75rem] max-md:w-full flex-col gap-5">
+        <p className="max-md:text-[8px] uppercase tracking-[8px] text-[0.65rem] font-bold text-secondary">
+          {smallText}
+        </p>
+        <h1 className='max-md:text-[36px] md:text-[8.5rem]  font-normal leading-[29.5px] md:leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-2px] md:tracking-[-8px] uppercase'>
           {bigText}
         </h1>
       </div>
-      <div className="relative z-50 flex w-[30rem] flex-col gap-8">
+      <div className="relative z-50 flex max-md:w-full w-[30rem] flex-col gap-8">
         <div className="h-[1px] w-32 bg-[#E7E1D8]"></div>
-        <p className="text-base font-normal text-[#E7E1D8]">{description}</p>
+        <p className="text-base max-md:leading-[20.8px] max-md:text-[16px] font-normal text-[#E7E1D8]">
+          {description}
+        </p>
         <motion.div whileHover="hover" initial="rest">
           <Link
             href={`#${value}`}
-            className="text-secondary text-xl leading-[4rem] font-semibold tracking-[-1px] cursor-pointer inline-flex items-center"
+            className="text-secondary max-md:text-[12px] text-xl leading-[4rem] font-semibold tracking-[-1px] cursor-pointer inline-flex items-center"
           >
             {buttonText}
             <motion.span

@@ -18,7 +18,7 @@ export const Dropdown = ({ title, description, img }) => {
     <>
       <div
         onClick={() => setOpen((prev) => !prev)}
-        className={`cursor-pointer flex flex-row py-6 items-center justify-between ${
+        className={`cursor-pointer flex flex-row max-md:py-[12px] md:py-6 items-center justify-between ${
           open ? "border-b-0" : "border-b"
         } first:border-t border-secondary`}
       >
@@ -52,7 +52,7 @@ export const Dropdown = ({ title, description, img }) => {
             transition={{ duration: 0.3 }}
             className="flex flex-row flex-wrap items-center gap-8 pt-[10px] pb-[21px] overflow-hidden border-b lg:gap-40 border-secondary"
           >
-            <div className="w-full relative lg:w-1/2 sm:h-[500px] lg:h-[500px]">
+            <div className="w-full relative lg:w-1/2 max-md:h-[412px] md:h-[500px]">
               <Image
                 src={img}
                 className="w-full absolute top-0 left-0 object-cover h-full"
@@ -61,10 +61,14 @@ export const Dropdown = ({ title, description, img }) => {
                 height={1000}
               />
             </div>
-            <p className="text-black  leading-5 w-full lg:w-[40%]">
-              <div className="text-xl font-normal">{firstPart}.</div>
+            <p className="text-black max-md:mt-[60px]  leading-5 w-full lg:w-[40%]">
+              <div className="max-md:text-[16px] leading-[20.8px] md:text-xl font-normal">
+                {firstPart}.
+              </div>
               <br />
-              <div className="text-2xl font-medium">{secondPart}.</div>
+              <div className="max-md:text-[18px] leading-[20.8px] md:text-2xl font-medium">
+                {secondPart}.
+              </div>
             </p>
           </motion.div>
         )}

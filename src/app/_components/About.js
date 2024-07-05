@@ -7,19 +7,23 @@ function About({ data, links }) {
   return (
     <div
       id={value}
-      className="bg-[#E7E1D8] flex flex-row flex-wrap lg:flex-nowrap justify-between lg:px-0 lg:pl-16 px-16 py-[183px] gap-24"
+      className="bg-[#E7E1D8]  flex flex-row flex-wrap lg:flex-nowrap justify-between max-md:px-[20px] lg:px-0 lg:pl-16 px-16 max-md:py-[100px] md:py-[183px] gap-24"
     >
-      <div className="flex flex-col lg:w-[50%] w-full pr-24">
-        <h1 className='text-[8.5rem] w-full font-normal leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-8px] uppercase'>
+      <div className="flex flex-col lg:w-[50%] w-full max-md:pr-0 pr-24">
+        <h1 className='max-md:text-[52px] md:text-[8.5rem] w-full font-normal max-md:tracking-[-2px] leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-8px] uppercase'>
           {title}
         </h1>
         {description
           .split(". IP")
           .map((desc, i) =>
             i === 1 ? (
-              <p className="mt-12 text-2xl font-medium text-black">IP {desc}</p>
+              <p className="mt-12 max-md:text-[18px] leading-[20.8px] md:text-2xl font-medium text-black">
+                IP {desc}
+              </p>
             ) : (
-              <p className="mt-12 text-xl font-medium text-black">{desc}.</p>
+              <p className="mt-12 max-md:text-[16px] leading-[20.8px] md:text-xl font-medium text-black">
+                {desc}.
+              </p>
             )
           )}
       </div>

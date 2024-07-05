@@ -2,11 +2,42 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { AnimatedLink } from "./Elements/AnimatedLink";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = ({ data }) => {
   const [open, setOpen] = useState(false);
   const [menuOpen, setNebuOpen] = useState(false);
-
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      y: "-100%",
+      transition: {
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+  const linkVariants = {
+    closed: { opacity: 0, y: 20 },
+    open: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    }),
+  };
   const { logo, phone, email, links } = data;
 
   return (
@@ -15,8 +46,8 @@ const Navbar = ({ data }) => {
         menuOpen ? "border-primary bg-secondary" : "border-secondary"
       } `}
     >
-      <nav className="relative flex flex-wrap py-4 lg:py-0 items-center justify-between w-full lg:justify-between">
-        <div className="flex items-center justify-between object-contain h-12 bg-transparent ms-20 w-fit lg:w-auto">
+      <nav className="relative flex flex-wrap py-[12px] md:py-4 lg:py-0 items-center justify-between w-full lg:justify-between">
+        <div className="flex items-center justify-between object-contain h-full bg-transparent ms-20 w-fit lg:w-auto">
           <Link className="object-contain w-full h-full" href="/">
             {menuOpen && (
               <svg
@@ -217,21 +248,37 @@ const Navbar = ({ data }) => {
             )}{" "}
           </Link>
         </div>
-        {menuOpen && (
-          <div className="fixed border-t border-primary top-16 px-12 py-20 left-0 z-[999999] gap-5 flex flex-col w-full bg-secondary h-svh">
-            {links?.map((link) => (
-              <Link
-                href={`#${link}`}
-                onClick={() => setNebuOpen(false)}
-                key={link}
-              >
-                <p className="text-[4rem] transition-all hover:underline font-bold uppercase cursor-pointer text-primary  underline-offset-1">
-                  {link}
-                </p>
-              </Link>
-            ))}
-          </div>
-        )}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              className="fixed border-t border-primary top-[48px] px-12 py-20 left-0 z-[999999] flex flex-col w-full bg-secondary h-svh"
+              variants={menuVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+            >
+              {links?.map((link, index) => (
+                <motion.div
+                  key={link}
+                  variants={linkVariants}
+                  custom={index}
+                  initial="closed"
+                  animate="open"
+                >
+                  <AnimatedLink
+                    href={`#${link}`}
+                    primary
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <p className="text-[4rem] transition-all font-bold uppercase cursor-pointer text-primary">
+                      {link}
+                    </p>
+                  </AnimatedLink>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
         <div className="flex flex-row items-center gap-4 me-20 lg:hidden">
           <svg
             className="cursor-pointer"
@@ -261,11 +308,11 @@ const Navbar = ({ data }) => {
         </div>
         <div className="flex-row items-center hidden gap-8 lg:flex">
           {links?.map((link) => (
-            <Link href={`#${link}`} key={link}>
-              <p className="text-xs font-medium uppercase transition-all cursor-pointer hover:underline text-secondary underline-offset-1">
+            <AnimatedLink href={`#${link}`} key={link}>
+              <p className="text-xs font-medium uppercase transition-all text-secondary">
                 {link}
               </p>
-            </Link>
+            </AnimatedLink>
           ))}
         </div>
         <div className="hidden lg:flex nav__item">
