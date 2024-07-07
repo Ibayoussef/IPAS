@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
 
-function About({ data, links }) {
+function About({ data, links, lang }) {
   const { title, description, asset } = data;
-  const value = links[3];
+  const value = links[3][lang];
   return (
     <div
       id={value}
@@ -11,21 +11,25 @@ function About({ data, links }) {
     >
       <div className="flex flex-col lg:w-[50%] w-full max-md:pr-0 pr-24">
         <h1 className='max-md:text-[52px] md:text-[8.5rem] w-full font-normal max-md:tracking-[-2px] leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-8px] uppercase'>
-          {title}
+          {title[lang]}
         </h1>
-        {description
-          .split(". IP")
-          .map((desc, i) =>
-            i === 1 ? (
-              <p className="mt-12 max-md:text-[18px] leading-[20.8px] md:text-2xl font-medium text-black">
-                IP {desc}
-              </p>
-            ) : (
-              <p className="mt-12 max-md:text-[16px] leading-[20.8px] md:text-xl font-medium text-black">
-                {desc}.
-              </p>
-            )
-          )}
+        {description[lang].split(". IP").map((desc, i) =>
+          i === 1 ? (
+            <p
+              key={desc}
+              className="mt-12 max-md:text-[18px] leading-[20.8px] md:text-2xl font-medium text-black"
+            >
+              IP {desc}
+            </p>
+          ) : (
+            <p
+              key={desc}
+              className="mt-12 max-md:text-[16px] leading-[20.8px] md:text-xl font-medium text-black"
+            >
+              {desc}.
+            </p>
+          )
+        )}
       </div>
       <div className="relative">
         <Image src={asset} alt="guy picture" width={1000} height={1000} />

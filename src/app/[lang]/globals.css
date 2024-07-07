@@ -34,29 +34,15 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-@layer utilities {
+
   .text-balance {
     text-wrap: balance;
   }
-}
-@layer base {
-  html {
-    font-size: calc(7px + (17 - 11) * ((100vw - 320px) / (1920 - 320)));
-    font-family: "Montserrat", sans-serif;
-  }
 
-  .rtl {
-    .text-xs {
-      font-size: 1.5rem !important;
-    }
-    .text-base {
-      font-size: 1.8rem !important;
-      line-height: 2rem !important;
-    }
-    .text-\[0\.65rem\] {
-      font-size: 1.5rem !important;
-    }
-  }
+
+html {
+  font-size: calc(7px + (17 - 11) * ((100vw - 320px) / (1920 - 320)));
+  font-family: "Montserrat", sans-serif;
 }
 .parallax {
   overflow: hidden;

@@ -3,28 +3,29 @@ import React from "react";
 import Image from "next/image";
 import Input from "./Elements/Input";
 import { motion } from "framer-motion";
-function Contact({ data, links }) {
+function Contact({ data, links, lang }) {
   const { asset, title, description, sendButton, inputs } = data;
-  const value = links[4];
+  const value = links[4][lang];
   return (
     <div id={value} className="flex flex-row">
       <div className="flex flex-col w-full gap-8 px-20 max-md:py-[100px] py-[120px]">
         <h1 className='text-[8.5rem] max-md:text-[52px] max-md:tracking-[-2px] font-normal leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-8px] uppercase'>
-          {title}
+          {title[lang]}
         </h1>
         <div className=" w-[80%] flex flex-col max-md:gap-[22px] gap-5">
           <div className="w-40 h-px bg-secondary"></div>
           <p className='font-["Montserrat"] max-md:text-[16px] leading-[20.8px] text-xl text-white'>
-            {description}
+            {description[lang]}
           </p>
         </div>
         <div className="grid max-md:mt-[60px] max-md:gap-[38px] w-full grid-cols-1 sm:grid-cols-3 gap-9">
-          {inputs.map(
-            (p, i) => i !== inputs.length - 1 && <Input key={p} label={p} />
+          {inputs?.map(
+            (p, i) =>
+              i !== inputs.length - 1 && <Input key={i} label={p[lang]} />
           )}
         </div>
         <div className="max-md:mt-[32px]">
-          <Input label={inputs[inputs.length - 1]} />
+          <Input label={inputs[inputs.length - 1][lang]} />
         </div>
 
         <motion.p
@@ -33,7 +34,7 @@ function Contact({ data, links }) {
           animate="rest"
           className="text-secondary max-md:mt-[92px] max-md:text-[12px] w-fit mt-16 text-xl font-semibold tracking-[-1px] cursor-pointer"
         >
-          {sendButton}
+          {sendButton[lang]}
           <motion.span
             className="ml-2 inline-block"
             variants={{

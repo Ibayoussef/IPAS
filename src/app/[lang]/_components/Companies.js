@@ -4,9 +4,9 @@ import Image from "next/image";
 // Import Swiper styles
 import "swiper/css";
 
-const Companies = ({ data, links }) => {
+const Companies = ({ data, links, lang }) => {
   const { title, description, companylogos } = data;
-  const value = links[1];
+  const value = links[1][lang];
 
   return (
     <div
@@ -15,10 +15,10 @@ const Companies = ({ data, links }) => {
     >
       <div className="h-px w-28 bg-secondary"></div>
       <p className="text-white leading-[20.8px] max-md:text-[16px] max-md:w-full text-base font-normal md:leading-5 md:w-[60%] mt-5">
-        {description}
+        {description[lang]}
       </p>
       <h4 className="mt-20 uppercase max-md:text-[10px] max-md:tracking-[8px] text-[0.65rem] tracking-[0.8rem] text-secondary">
-        {title}
+        {title[lang]}
       </h4>
       <div className="w-full mt-4 overflow-hidden">
         <div className="hidden md:flex flex-row flex-wrap items-center justify-center gap-[108px]">

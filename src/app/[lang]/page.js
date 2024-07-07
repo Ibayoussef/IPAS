@@ -20,22 +20,28 @@ const AnimatedSection = ({ children }) => {
     </motion.div>
   );
 };
-export default function Home() {
+export default function Home({ params: { lang } }) {
   const storyData = data;
 
   return (
     <div className={`bg-primary overflow-hidden`}>
       <Navbar
+        lang={lang}
         links={storyData.nav_section.links}
         data={storyData.nav_section}
       />
       <AnimatedSection>
         {" "}
-        <Hero links={storyData.nav_section.links} data={storyData.hero} />
+        <Hero
+          lang={lang}
+          links={storyData.nav_section.links}
+          data={storyData.hero}
+        />
       </AnimatedSection>
       <AnimatedSection>
         {" "}
         <Services
+          lang={lang}
           links={storyData.nav_section.links}
           data={storyData.services}
         />
@@ -43,6 +49,7 @@ export default function Home() {
       <AnimatedSection>
         {" "}
         <Companies
+          lang={lang}
           links={storyData.nav_section.links}
           data={storyData.companies}
         />
@@ -50,18 +57,26 @@ export default function Home() {
       <AnimatedSection>
         {" "}
         {storyData.testimonials.testi.length > 0 && (
-          <Testimonials data={storyData.testimonials} />
+          <Testimonials lang={lang} data={storyData.testimonials} />
         )}
       </AnimatedSection>
       <AnimatedSection>
         {" "}
-        <About links={storyData.nav_section.links} data={storyData.about} />
+        <About
+          lang={lang}
+          links={storyData.nav_section.links}
+          data={storyData.about}
+        />
       </AnimatedSection>
       <AnimatedSection>
         {" "}
-        <Contact links={storyData.nav_section.links} data={storyData.contact} />
+        <Contact
+          lang={lang}
+          links={storyData.nav_section.links}
+          data={storyData.contact}
+        />
       </AnimatedSection>
-      <Footer data={storyData.nav_section} />
+      <Footer lang={lang} data={storyData.nav_section} />
     </div>
   );
 }

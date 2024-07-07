@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimatedLink } from "./Elements/AnimatedLink";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Navbar = ({ data }) => {
+const Navbar = ({ data, lang }) => {
   const [open, setOpen] = useState(false);
   const [menuOpen, setNebuOpen] = useState(false);
   const menuVariants = {
@@ -263,16 +263,16 @@ const Navbar = ({ data }) => {
             >
               {links?.map((link, index) => (
                 <motion.div
-                  key={link}
+                  key={index}
                   variants={linkVariants}
                   custom={index}
                   initial="closed"
                   animate="open"
                   onClick={() => setNebuOpen(false)}
                 >
-                  <AnimatedLink href={`#${link}`} primary>
+                  <AnimatedLink href={`#${link[lang]}`} primary>
                     <p className="text-[62px] max-md:text-[32px] transition-all font-bold uppercase cursor-pointer text-primary">
-                      {link}
+                      {link[lang]}
                     </p>
                   </AnimatedLink>
                 </motion.div>
@@ -294,6 +294,47 @@ const Navbar = ({ data }) => {
           )}
         </AnimatePresence>
         <div className="flex flex-row items-center gap-4 me-20 lg:hidden">
+          <div
+            className="relative flex flex-row items-center gap-2 p-6 cursor-pointer "
+            onClick={() => setOpen((prev) => !prev)}
+          >
+            <p
+              className={`font-semibold underline uppercase ${
+                menuOpen ? "text-primary" : "text-secondary"
+              }`}
+            >
+              {lang}
+            </p>
+            <svg
+              width="7"
+              height="5"
+              viewBox="0 0 7 5"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                className={menuOpen ? "fill-primary" : "fill-secondary"}
+                d="M2.97 3.93949L3.3942 4.36369L6.7884 0.969494L5.94 0.121094L3.3942 2.66629L0.8484 0.121094L0 0.969494L2.97 3.93949Z"
+                fill="#121B24"
+              />
+            </svg>
+            {open && (
+              <div className="absolute z-[9999] bg-primary left-0 flex flex-col w-full h-fit top-16 ">
+                <Link
+                  className="py-4 font-medium text-center cursor-pointer text-secondary"
+                  href="/fr"
+                >
+                  FR
+                </Link>
+                <Link
+                  className="py-4 font-medium text-center cursor-pointer text-secondary"
+                  href="/en"
+                >
+                  EN
+                </Link>
+              </div>
+            )}
+          </div>
           <svg
             className="cursor-pointer"
             onClick={() => setNebuOpen((prev) => !prev)}
@@ -321,15 +362,56 @@ const Navbar = ({ data }) => {
           </svg>
         </div>
         <div className="flex-row items-center hidden gap-8 lg:flex">
-          {links?.map((link) => (
-            <AnimatedLink href={`#${link}`} key={link}>
+          {links?.map((link, i) => (
+            <AnimatedLink href={`#${link[lang]}`} key={i}>
               <p className="text-xs font-medium uppercase transition-all text-secondary">
-                {link}
+                {link[lang]}
               </p>
             </AnimatedLink>
           ))}
         </div>
         <div className="hidden lg:flex nav__item">
+          <div
+            className="relative flex flex-row items-center gap-2 p-6 cursor-pointer "
+            onClick={() => setOpen((prev) => !prev)}
+          >
+            <p
+              className={`font-semibold underline uppercase ${
+                menuOpen ? "text-primary" : "text-secondary"
+              }`}
+            >
+              {lang}
+            </p>
+            <svg
+              width="7"
+              height="5"
+              viewBox="0 0 7 5"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                className={menuOpen ? "fill-primary" : "fill-secondary"}
+                d="M2.97 3.93949L3.3942 4.36369L6.7884 0.969494L5.94 0.121094L3.3942 2.66629L0.8484 0.121094L0 0.969494L2.97 3.93949Z"
+                fill="#121B24"
+              />
+            </svg>
+            {open && (
+              <div className="absolute z-[9999] bg-primary left-0 flex flex-col w-full h-fit top-16 ">
+                <Link
+                  className="py-4 font-medium text-center cursor-pointer text-secondary"
+                  href="/fr"
+                >
+                  FR
+                </Link>
+                <Link
+                  className="py-4 font-medium text-center cursor-pointer text-secondary"
+                  href="/en"
+                >
+                  EN
+                </Link>
+              </div>
+            )}
+          </div>
           <Link
             href="#contact"
             className="p-6  text-primary underline font-semibold bg-secondary border-[#121B2466] border-x"

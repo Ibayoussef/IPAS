@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatedLink } from "./Elements/AnimatedLink";
-function Footer({ data }) {
+function Footer({ data, lang }) {
   const { logo, links } = data;
   return (
     <nav className="relative flex flex-col flex-wrap justify-between w-full px-20 sm:items-center sm:flex-row max-md:gap-[32px] gap-9 mt-28 lg:justify-between ">
@@ -108,10 +108,10 @@ function Footer({ data }) {
         </Link>
       </div>
       <div className="flex flex-col gap-8 max-md:gap-[16px] sm:items-center sm:flex-row">
-        {links?.map((link) => (
-          <AnimatedLink href={`#${link}`} key={link}>
+        {links?.map((link, i) => (
+          <AnimatedLink href={`#${link}`} key={i}>
             <p className="text-xs font-medium max-md:text-[12px] uppercase transition-all text-secondary">
-              {link}
+              {link[lang]}
             </p>
           </AnimatedLink>
         ))}
