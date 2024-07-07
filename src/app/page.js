@@ -24,7 +24,7 @@ export default function Home() {
   const storyData = data;
 
   return (
-    <div className={`bg-primary`}>
+    <div className={`bg-primary overflow-hidden`}>
       <Navbar
         links={storyData.nav_section.links}
         data={storyData.nav_section}

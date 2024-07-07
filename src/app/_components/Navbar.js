@@ -46,7 +46,11 @@ const Navbar = ({ data }) => {
         menuOpen ? "border-primary bg-secondary" : "border-secondary"
       } `}
     >
-      <nav className="relative flex flex-wrap py-[12px] md:py-4 lg:py-0 items-center justify-between w-full lg:justify-between">
+      <nav
+        className={`${
+          menuOpen ? "fixed top-0 left-0 z-[999] bg-secondary" : "relative"
+        } flex flex-wrap py-[12px] md:py-4 lg:py-0 items-center justify-between w-full lg:justify-between`}
+      >
         <div className="flex items-center justify-between object-contain h-full bg-transparent ms-20 w-fit lg:w-auto">
           <Link className="object-contain w-full h-full" href="/">
             {menuOpen && (
@@ -251,7 +255,7 @@ const Navbar = ({ data }) => {
         <AnimatePresence>
           {menuOpen && (
             <motion.div
-              className="fixed border-t border-primary top-[48px] px-12 py-20 left-0 z-[999999] flex flex-col w-full bg-secondary h-svh"
+              className="fixed border-t md:pt-[79px]  max-md:pt-[69px] border-primary top-[48px] px-[36px]  left-0 z-[999999] flex flex-col w-full bg-secondary h-full"
               variants={menuVariants}
               initial="closed"
               animate="open"
@@ -264,18 +268,28 @@ const Navbar = ({ data }) => {
                   custom={index}
                   initial="closed"
                   animate="open"
+                  onClick={() => setNebuOpen(false)}
                 >
-                  <AnimatedLink
-                    href={`#${link}`}
-                    primary
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    <p className="text-[4rem] transition-all font-bold uppercase cursor-pointer text-primary">
+                  <AnimatedLink href={`#${link}`} primary>
+                    <p className="text-[62px] max-md:text-[32px] transition-all font-bold uppercase cursor-pointer text-primary">
                       {link}
                     </p>
                   </AnimatedLink>
                 </motion.div>
               ))}
+              <motion.div
+                variants={linkVariants}
+                initial="closed"
+                animate="open"
+                className="flex md:gap-[22px] max-md:gap-[14px] max-md:mt-[174px] mt-[357px] flex-row max-md:flex-col"
+              >
+                <p className="text-[16px] md:text-[22px] underline capitalize transition-all font-bold  cursor-pointer text-primary">
+                  contact@elharzli.com
+                </p>
+                <p className="text-[16px] md:text-[22px] underline transition-all font-bold  cursor-pointer text-primary">
+                  +212 6 77 62 82 03
+                </p>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

@@ -10,13 +10,13 @@ function Hero({ data, links }) {
 
   return (
     <div
-      className={`relative flex lg:flex-row max-lg:flex-col flex-wrap md:h-[812px] h-full max-md:h-[582px] items-start lg:items-end max-lg:justify-start max-lg:gap-[32px]  lg:justify-between w-full lg:gap-12 px-16 py-[67px] md:py-[93px]`}
+      className={`relative flex xl:flex-row max-xl:flex-col flex-wrap md:h-[1000px] xl:h-[812px] h-full max-md:h-[582px] items-start xl:items-end max-xl:justify-start max-xl:gap-[32px]  xl:justify-between w-full xl:gap-12 px-16 py-[67px]  md:py-[93px]`}
     >
-      <div className="relative z-50 flex w-[75rem] max-md:w-full flex-col gap-5">
+      <div className="relative z-50 flex md:w-[662px] md:pt-[163px] xl:pt-0 xl:w-[75rem] max-md:w-full flex-col gap-5">
         <p className="max-md:text-[8px] uppercase tracking-[8px] text-[0.65rem] font-bold text-secondary">
           {smallText}
         </p>
-        <h1 className='max-md:text-[36px] md:text-[8.5rem]  font-normal leading-[29.5px] md:leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-2px] md:tracking-[-8px] uppercase'>
+        <h1 className='max-md:text-[36px] md:text-[8.5rem]   font-normal leading-[29.5px] md:leading-[9rem] text-secondary font-["Scheherazade_New"] tracking-[-2px] md:tracking-[-8px] uppercase'>
           {bigText}
         </h1>
       </div>
@@ -44,10 +44,10 @@ function Hero({ data, links }) {
           </Link>
         </motion.div>
       </div>
-      <div className="absolute bottom-0 md:-translate-y-1/2 right-0 w-full md:w-3/4 h-[80%] md:top-1/2">
+      <div className="absolute bottom-0 md:-right-[150px] xl:right-0 md:-translate-y-1/2 right-0 w-full md:w-3/4 h-[80%] md:top-1/2">
         <div className="absolute z-30 w-full h-full top-0 right-0 bg-black opacity-50"></div>
         <Image
-          className="relative z-20 top-0 right-0 object-cover w-full h-full"
+          className="relative z-20 top-0 left-0  object-cover w-full h-full"
           src={heroImg}
           width={1000}
           height={1000}

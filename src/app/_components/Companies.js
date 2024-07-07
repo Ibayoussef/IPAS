@@ -1,54 +1,8 @@
-import React, { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useSpring,
-  useTransform,
-  useMotionValue,
-  useVelocity,
-  useAnimationFrame,
-} from "framer-motion";
-import { wrap } from "@motionone/utils";
-
-function ParallaxImages({ images, baseVelocity = 5 }) {
-  const baseX = useMotionValue(0);
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, {
-    damping: 50,
-    stiffness: 400,
-  });
-  const velocityFactor = useTransform(
-    smoothVelocity,
-    [-1000, 0, 1000],
-    [-1, 0, 1]
-  );
-
-  const x = useTransform(baseX, (v) => `${wrap(-100, 50, v)}%`);
-
-  const directionFactor = useRef(1);
-  useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
-    moveBy += directionFactor.current * moveBy * velocityFactor.get();
-    baseX.set(baseX.get() + moveBy);
-  });
-
-  return (
-    <div className="parallax">
-      <motion.div className="scroller" style={{ x }}>
-        {images.concat(images).map((image, index) => (
-          <div key={index} className="inline-block !w-[200px] !h-auto ml-4">
-            <img
-              src={image}
-              alt={`company-img-${index}`}
-              className="!w-full object-contain !h-[40px]"
-            />
-          </div>
-        ))}
-      </motion.div>
-    </div>
-  );
-}
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Image from "next/image";
+// Import Swiper styles
+import "swiper/css";
 
 const Companies = ({ data, links }) => {
   const { title, description, companylogos } = data;
@@ -66,7 +20,7 @@ const Companies = ({ data, links }) => {
       <h4 className="mt-20 uppercase max-md:text-[10px] max-md:tracking-[8px] text-[0.65rem] tracking-[0.8rem] text-secondary">
         {title}
       </h4>
-      <div className="w-full  mt-4 overflow-hidden">
+      <div className="w-full mt-4 overflow-hidden">
         <div className="hidden md:flex flex-row flex-wrap items-center justify-center gap-[108px]">
           {companylogos.map((p, index) => (
             <img
@@ -77,8 +31,26 @@ const Companies = ({ data, links }) => {
             />
           ))}
         </div>
-        <div className="md:hidden z-50 absolute bottom-[70px] left-0 w-[200vw] h-[40px]">
-          <ParallaxImages images={companylogos} />
+        <div className="md:hidden absolute left-0  mt-[16px] w-full">
+          <Swiper
+            slidesPerView={2.2}
+            centeredSlides={true}
+            spaceBetween={30}
+            initialSlide={1} // Start with the second slide as active
+            className="mySwiper"
+          >
+            {companylogos.map((logo, index) => (
+              <SwiperSlide key={index}>
+                <Image
+                  src={logo}
+                  width={1000}
+                  height={1000}
+                  alt={`company-img-${index}`}
+                  className="w-full h-[40px] object-contain"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </div>

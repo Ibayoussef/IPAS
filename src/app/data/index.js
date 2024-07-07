@@ -76,11 +76,11 @@ export const data = {
     description:
       "Nunc vel congue dui. Donec fringilla ligula et mi convallis, a facilisis elit ultricies. Nunc posuere tellus eget placerat sodales. In porttitor consectetur felis",
     companylogos: [
-      "/images/company1.png",
-      "/images/company2.png",
-      "/images/company3.png",
-      "/images/company4.png",
-      "/images/company5.png",
+      "/images/company1.svg",
+      "/images/company2.svg",
+      "/images/company3.svg",
+      "/images/company4.svg",
+      "/images/company5.svg",
     ],
   },
   contact: {
