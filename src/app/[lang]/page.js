@@ -9,6 +9,7 @@ import Services from "./_components/Services";
 import Testimonials from "./_components/Testimonials";
 import { data } from "./data";
 import { motion } from "framer-motion";
+import StructuredData from "./_components/StruturedData";
 const AnimatedSection = ({ children }) => {
   return (
     <motion.div
@@ -76,6 +77,7 @@ export default function Home({ params: { lang } }) {
           data={storyData.contact}
         />
       </AnimatedSection>
+      <StructuredData />
       <Footer lang={lang} data={storyData.nav_section} />
     </div>
   );
