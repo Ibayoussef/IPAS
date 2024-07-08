@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 
-export default function HeroSection({ data, onChange }) {
+export default function HeroSection({ data, onChange, lang }) {
   const [localData, setLocalData] = useState(data);
   const [previewUrl, setPreviewUrl] = useState(data.heroImg);
   const [isUploading, setIsUploading] = useState(false);
@@ -12,7 +12,7 @@ export default function HeroSection({ data, onChange }) {
     const { name, value } = e.target;
     setLocalData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: { ...prev[name], [lang]: value },
     }));
   };
 
@@ -70,7 +70,7 @@ export default function HeroSection({ data, onChange }) {
             type="text"
             name="bigText"
             id="bigText"
-            value={localData.bigText}
+            value={localData.bigText[lang]}
             onChange={handleInputChange}
             className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-indigo-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500"
           />
@@ -86,7 +86,7 @@ export default function HeroSection({ data, onChange }) {
             type="text"
             name="smallText"
             id="smallText"
-            value={localData.smallText}
+            value={localData.smallText[lang]}
             onChange={handleInputChange}
             className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-indigo-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500"
           />
@@ -139,7 +139,7 @@ export default function HeroSection({ data, onChange }) {
             type="text"
             name="buttonText"
             id="buttonText"
-            value={localData.buttonText}
+            value={localData.buttonText[lang]}
             onChange={handleInputChange}
             className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-indigo-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500"
           />
@@ -155,7 +155,7 @@ export default function HeroSection({ data, onChange }) {
             name="description"
             id="description"
             rows="4"
-            value={localData.description}
+            value={localData.description[lang]}
             onChange={handleInputChange}
             className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-indigo-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500"
           ></textarea>

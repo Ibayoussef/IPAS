@@ -8,7 +8,7 @@ function getLocale(request) {
 export function middleware(request) {
   // Check if there is any supported locale in the pathname
   const { pathname } = request.nextUrl;
-  if (pathname.includes("images")) {
+  if (pathname.includes("images") || pathname.includes("api")) {
     return;
   }
   const pathnameHasLocale = locales.some(

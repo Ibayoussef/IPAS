@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 
-export default function ServicesSection({ data, onChange }) {
+export default function ServicesSection({ data, onChange, lang }) {
   const [localData, setLocalData] = useState(data);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef(null);
@@ -11,7 +11,7 @@ export default function ServicesSection({ data, onChange }) {
     const { name, value } = e.target;
     setLocalData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: { ...prev[name], [lang]: value },
     }));
   };
 
@@ -19,7 +19,9 @@ export default function ServicesSection({ data, onChange }) {
     setLocalData((prev) => ({
       ...prev,
       dropdownContent: prev.dropdownContent.map((item, i) =>
-        i === index ? { ...item, [field]: value } : item
+        i === index
+          ? { ...item, [field]: { ...item[field], [lang]: value } }
+          : item
       ),
     }));
   };
@@ -97,7 +99,7 @@ export default function ServicesSection({ data, onChange }) {
             type="text"
             name="Title"
             id="Title"
-            value={localData.Title}
+            value={localData.Title[lang]}
             onChange={handleInputChange}
             className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-green-300 rounded-xl focus:ring-green-500 focus:border-green-500"
           />
@@ -113,7 +115,7 @@ export default function ServicesSection({ data, onChange }) {
             name="description"
             id="description"
             rows="4"
-            value={localData.description}
+            value={localData.description[lang]}
             onChange={handleInputChange}
             className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-green-300 rounded-xl focus:ring-green-500 focus:border-green-500"
           ></textarea>
@@ -151,7 +153,7 @@ export default function ServicesSection({ data, onChange }) {
               <div className="col-span-2 space-y-4">
                 <input
                   type="text"
-                  value={item.title}
+                  value={item.title[lang]}
                   onChange={(e) =>
                     handleDropdownContentChange(index, "title", e.target.value)
                   }
@@ -159,7 +161,7 @@ export default function ServicesSection({ data, onChange }) {
                   className="block w-full px-4 py-3 text-lg text-black border-2 border-green-300 rounded-xl focus:ring-green-500 focus:border-green-500"
                 />
                 <textarea
-                  value={item.description}
+                  value={item.description[lang]}
                   onChange={(e) =>
                     handleDropdownContentChange(
                       index,

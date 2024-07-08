@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 
-export default function ContactSection({ data, onChange }) {
+export default function ContactSection({ data, onChange, lang }) {
   const [localData, setLocalData] = useState(data);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef(null);
@@ -11,13 +11,13 @@ export default function ContactSection({ data, onChange }) {
     const { name, value } = e.target;
     setLocalData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: { ...prev[name], [lang]: value },
     }));
   };
 
   const handleInputsChange = (index, value) => {
     const newInputs = [...localData.inputs];
-    newInputs[index] = value;
+    newInputs[index] = { ...newInputs[index], [lang]: value };
     setLocalData((prev) => ({ ...prev, inputs: newInputs }));
   };
 
@@ -126,7 +126,7 @@ export default function ContactSection({ data, onChange }) {
               type="text"
               name="title"
               id="title"
-              value={localData.title}
+              value={localData.title[lang]}
               onChange={handleInputChange}
               className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-red-300 rounded-xl focus:ring-red-500 focus:border-red-500"
             />
@@ -142,7 +142,7 @@ export default function ContactSection({ data, onChange }) {
               name="description"
               id="description"
               rows="4"
-              value={localData.description}
+              value={localData.description[lang]}
               onChange={handleInputChange}
               className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-red-300 rounded-xl focus:ring-red-500 focus:border-red-500"
             ></textarea>
@@ -158,7 +158,7 @@ export default function ContactSection({ data, onChange }) {
               type="text"
               name="sendButton"
               id="sendButton"
-              value={localData.sendButton}
+              value={localData.sendButton[lang]}
               onChange={handleInputChange}
               className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-red-300 rounded-xl focus:ring-red-500 focus:border-red-500"
             />
@@ -173,7 +173,7 @@ export default function ContactSection({ data, onChange }) {
           <div key={index} className="flex items-center mb-4 space-x-4">
             <input
               type="text"
-              value={input}
+              value={input[lang]}
               onChange={(e) => handleInputsChange(index, e.target.value)}
               placeholder={`Input field ${index + 1}`}
               className="flex-grow px-4 py-3 text-lg text-black border-2 border-red-300 rounded-xl focus:ring-red-500 focus:border-red-500"

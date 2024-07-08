@@ -25,10 +25,68 @@ const sections = [
   { name: "Companies", component: CompaniesSection, dataKey: "companies" },
   { name: "Contact", component: ContactSection, dataKey: "contact" },
 ];
+const LanguageSelector = ({ currentLang, onLanguageChange }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-export default function Dashboard() {
+  const languages = [
+    { code: "en", label: "English" },
+    { code: "fr", label: "Français" },
+  ];
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center justify-between w-40 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      >
+        <span>
+          {languages.find((lang) => lang.code === currentLang)?.label}
+        </span>
+        <svg
+          className="w-5 h-5 ml-2 -mr-1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            fillRule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </button>
+      {isOpen && (
+        <div className="absolute right-0 w-40 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+          <div
+            className="py-1"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
+          >
+            {languages.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => {
+                  onLanguageChange(lang.code);
+                  setIsOpen(false);
+                }}
+                className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                role="menuitem"
+              >
+                {lang.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+export default function Dashboard({ params: { lang } }) {
   const [data, setData] = useState(initialData);
   const [activeTab, setActiveTab] = useState(0);
+  const [currentLang, setCurrentLang] = useState(lang);
   const isLoggedIn = getCookie("isLoggedIn") === "true";
   const router = useRouter();
 
@@ -37,6 +95,7 @@ export default function Dashboard() {
       router.push("/admin");
     }
   }, [router, isLoggedIn]);
+
   const handleDataChange = (section, newData) => {
     setData((prevData) => ({
       ...prevData,
@@ -64,14 +123,25 @@ export default function Dashboard() {
       alert("Error saving data. Please try again.");
     }
   };
+
+  const handleLanguageChange = (newLang) => {
+    setCurrentLang(newLang);
+    router.push(`/${newLang}/admin/dashboard`);
+  };
+
   if (!isLoggedIn) {
-    return;
+    return null;
   }
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-100">
       <header className="bg-white shadow-lg">
-        <div className="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8 flex justify-between items-center">
           <h1 className="text-4xl font-bold text-gray-900">Dashboard</h1>
+          <LanguageSelector
+            currentLang={currentLang}
+            onLanguageChange={handleLanguageChange}
+          />
         </div>
       </header>
       <main className="py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -101,6 +171,7 @@ export default function Dashboard() {
                 className={activeTab === index ? "block" : "hidden"}
               >
                 <section.component
+                  lang={currentLang}
                   data={data[section.dataKey]}
                   onChange={(newData) =>
                     handleDataChange(section.dataKey, newData)

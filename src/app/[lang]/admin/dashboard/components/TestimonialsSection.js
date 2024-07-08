@@ -1,20 +1,23 @@
 "use client";
 import { useState } from "react";
 
-export default function TestimonialsSection({ data, onChange }) {
+export default function TestimonialsSection({ data, onChange, lang }) {
   const [localData, setLocalData] = useState(data);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLocalData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: { ...prev[name], [lang]: value },
     }));
   };
 
   const handleTestimonialChange = (index, field, value) => {
     const newTestimonials = [...localData.testi];
-    newTestimonials[index] = { ...newTestimonials[index], [field]: value };
+    newTestimonials[index] = {
+      ...newTestimonials[index],
+      [field]: { ...newTestimonials[index][field], [lang]: value },
+    };
     setLocalData((prev) => ({ ...prev, testi: newTestimonials }));
   };
 
@@ -39,7 +42,7 @@ export default function TestimonialsSection({ data, onChange }) {
             type="text"
             name="title"
             id="title"
-            value={localData.title}
+            value={localData.title[lang]}
             onChange={handleInputChange}
             className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-orange-300 rounded-xl focus:ring-orange-500 focus:border-orange-500"
           />
@@ -55,7 +58,7 @@ export default function TestimonialsSection({ data, onChange }) {
             name="description"
             id="description"
             rows="4"
-            value={localData.description}
+            value={localData.description[lang]}
             onChange={handleInputChange}
             className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-orange-300 rounded-xl focus:ring-orange-500 focus:border-orange-500"
           ></textarea>
@@ -69,7 +72,7 @@ export default function TestimonialsSection({ data, onChange }) {
           <div key={index} className="p-6 mb-6 bg-white rounded-2xl shadow-md">
             <input
               type="text"
-              value={testimonial.name}
+              value={testimonial.name[lang]}
               onChange={(e) =>
                 handleTestimonialChange(index, "name", e.target.value)
               }
@@ -77,7 +80,7 @@ export default function TestimonialsSection({ data, onChange }) {
               className="block w-full px-4 py-3 mb-4 text-lg text-black border-2 border-orange-300 rounded-xl focus:ring-orange-500 focus:border-orange-500"
             />
             <textarea
-              value={testimonial.text}
+              value={testimonial.text[lang]}
               onChange={(e) =>
                 handleTestimonialChange(index, "text", e.target.value)
               }

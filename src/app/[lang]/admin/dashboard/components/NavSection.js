@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
 
-export default function NavSection({ data, onChange }) {
+export default function NavSection({ data, onChange, lang }) {
   const [localData, setLocalData] = useState(data);
   const [previewUrl, setPreviewUrl] = useState(data.logo);
   const [isUploading, setIsUploading] = useState(false);
@@ -18,7 +18,7 @@ export default function NavSection({ data, onChange }) {
 
   const handleLinkChange = (index, value) => {
     const newLinks = [...localData.links];
-    newLinks[index] = value;
+    newLinks[index] = { ...newLinks[index], [lang]: value };
     setLocalData((prev) => ({ ...prev, links: newLinks }));
   };
 
@@ -155,7 +155,7 @@ export default function NavSection({ data, onChange }) {
           <div key={index} className="flex mt-4">
             <input
               type="text"
-              value={link}
+              value={link[lang]}
               onChange={(e) => handleLinkChange(index, e.target.value)}
               className="flex-grow block w-full px-4 py-3 text-lg text-black border-2 border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500"
               placeholder={`Link ${index + 1}`}

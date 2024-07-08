@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 
-export default function AboutSection({ data, onChange }) {
+export default function AboutSection({ data, onChange, lang }) {
   const [localData, setLocalData] = useState(data);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef(null);
@@ -11,7 +11,7 @@ export default function AboutSection({ data, onChange }) {
     const { name, value } = e.target;
     setLocalData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: { ...prev[name], [lang]: value },
     }));
   };
 
@@ -68,7 +68,7 @@ export default function AboutSection({ data, onChange }) {
             type="text"
             name="title"
             id="title"
-            value={localData.title}
+            value={localData.title[lang]}
             onChange={handleInputChange}
             className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-purple-300 rounded-xl focus:ring-purple-500 focus:border-purple-500"
           />
@@ -84,7 +84,7 @@ export default function AboutSection({ data, onChange }) {
             name="description"
             id="description"
             rows="5"
-            value={localData.description}
+            value={localData.description[lang]}
             onChange={handleInputChange}
             className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-purple-300 rounded-xl focus:ring-purple-500 focus:border-purple-500"
           ></textarea>
