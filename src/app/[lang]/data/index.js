@@ -60,7 +60,7 @@ export const data = {
     },
     "dropdownContent": [
       {
-        "img": "/images/dropdown.png",
+        "img": "/images/dropdown1.png",
         "title": {
           "fr": "Conseil en Propriété Industrielle",
           "en": "Industrial Property Consulting"
@@ -71,7 +71,7 @@ export const data = {
         }
       },
       {
-        "img": "/images/dropdown.png",
+        "img": "/images/dropdown2.png",
         "title": {
           "fr": "Rédaction des brevets d'invention",
           "en": "Drafting of Patent Applications"
@@ -82,7 +82,7 @@ export const data = {
         }
       },
       {
-        "img": "/images/dropdown.png",
+        "img": "/images/dropdown3.png",
         "title": {
           "fr": "Dépôt de marques",
           "en": "Trademark Filing"
@@ -93,7 +93,7 @@ export const data = {
         }
       },
       {
-        "img": "/images/dropdown.png",
+        "img": "/images/dropdown4.png",
         "title": {
           "fr": "Dépôt de Dessins ou Modèles Industriels",
           "en": "Filing of Industrial Designs"
@@ -104,7 +104,7 @@ export const data = {
         }
       },
       {
-        "img": "/images/dropdown.png",
+        "img": "/images/dropdown5.png",
         "title": {
           "fr": "Procédure d'opposition",
           "en": "Opposition Procedure"
