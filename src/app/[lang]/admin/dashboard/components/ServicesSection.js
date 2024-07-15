@@ -62,8 +62,8 @@ export default function ServicesSection({ data, onChange, lang }) {
         }
 
         const result = await response.json();
-        const imageUrl = `/images/${result.filename}`;
-        handleDropdownContentChange(index, "img", imageUrl);
+
+        handleDropdownContentChange(index, "img", result.url);
       } catch (error) {
         console.error("Error uploading image:", error);
         alert("Failed to upload image. Please try again.");

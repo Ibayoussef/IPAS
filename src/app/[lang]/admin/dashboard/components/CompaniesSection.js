@@ -36,7 +36,7 @@ export default function CompaniesSection({ data, onChange, lang }) {
         }
 
         const result = await response.json();
-        uploadedUrls.push(`/images/${result.filename}`);
+        uploadedUrls.push(result.url);
       }
 
       setLocalData((prev) => ({

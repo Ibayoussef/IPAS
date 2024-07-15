@@ -7,9 +7,11 @@ import Hero from "./_components/Hero";
 import Navbar from "./_components/Navbar";
 import Services from "./_components/Services";
 import Testimonials from "./_components/Testimonials";
-import { data } from "./data";
+import Loader from "./_components/Loader";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import StructuredData from "./_components/StruturedData";
+import { supabase } from "../api/lib/supabaseClient";
 const AnimatedSection = ({ children }) => {
   return (
     <motion.div
@@ -21,9 +23,45 @@ const AnimatedSection = ({ children }) => {
     </motion.div>
   );
 };
-export default function Home({ params: { lang } }) {
-  const storyData = data;
 
+export default function Home({ params: { lang } }) {
+  const [storyData, setStoryData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data, error } = await supabase
+          .from("app_data")
+          .select("content")
+          .eq("id", 1)
+          .single();
+
+        if (error) {
+          throw error;
+        }
+
+        setStoryData(data.content);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (!storyData) {
+    return (
+      <div className="text-center text-white p-8">
+        Failed to load data. Please try again later.
+      </div>
+    );
+  }
   return (
     <div className={`bg-primary overflow-hidden`}>
       <Navbar

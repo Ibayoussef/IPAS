@@ -21,7 +21,7 @@ const Companies = ({ data, links, lang }) => {
         {title[lang]}
       </h4>
       <div className="w-full mt-4 overflow-hidden">
-        <div className="hidden md:flex flex-row flex-wrap items-center justify-center gap-[108px]">
+        <div className="hidden md:flex flex-row absolute left-1/2 -translate-x-1/2 mt-[16px]  items-center justify-center gap-[108px]">
           {companylogos.map((p, index) => (
             <img
               key={index}

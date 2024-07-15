@@ -281,7 +281,7 @@ const Navbar = ({ data, lang }) => {
                 variants={linkVariants}
                 initial="closed"
                 animate="open"
-                className="flex md:gap-[22px] max-md:gap-[14px] max-md:mt-[174px] mt-[357px] flex-row max-md:flex-col"
+                className="flex md:gap-[22px] max-md:gap-[14px] max-md:mt-[174px] mt-[100px] flex-row max-md:flex-col"
               >
                 <p className="text-[16px] md:text-[22px] underline capitalize transition-all font-bold  cursor-pointer text-primary">
                   contact@elharzli.com

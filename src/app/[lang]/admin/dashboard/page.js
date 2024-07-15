@@ -11,6 +11,7 @@ import AboutSection from "./components/AboutSection";
 import CompaniesSection from "./components/CompaniesSection";
 import ContactSection from "./components/ContactSection";
 import { getCookie } from "cookies-next";
+import { supabase } from "@/app/api/lib/supabaseClient";
 
 const sections = [
   { name: "Navigation", component: NavSection, dataKey: "nav_section" },
@@ -89,7 +90,24 @@ export default function Dashboard({ params: { lang } }) {
   const [currentLang, setCurrentLang] = useState(lang);
   const isLoggedIn = getCookie("isLoggedIn") === "true";
   const router = useRouter();
+  useEffect(() => {
+    async function fetchData() {
+      const { data: result, error } = await supabase
+        .from("app_data")
+        .select()
+        .eq("id", 1)
+        .single();
 
+      if (error) {
+        console.error("Error fetching data:", error);
+      } else {
+        setData(result.content);
+      }
+    }
+
+    fetchData();
+  }, []);
+  console.log(data);
   useEffect(() => {
     if (!isLoggedIn) {
       router.push("/admin");
