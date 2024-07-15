@@ -18,12 +18,16 @@ export async function POST(request) {
     const buffer = await file.arrayBuffer();
     const fileBuffer = new Uint8Array(buffer);
 
-    // Get file type
+    // Get file type and extension
     const fileType = file.type;
+    const fileExtension = file.name.split(".").pop();
+
+    // Add file extension to the name
+    const fullName = `${name}.${fileExtension}`;
 
     const { data: uploadData, error } = await supabase.storage
       .from("images")
-      .upload(`${name}`, fileBuffer, {
+      .upload(fullName, fileBuffer, {
         contentType: fileType,
         upsert: true,
       });
