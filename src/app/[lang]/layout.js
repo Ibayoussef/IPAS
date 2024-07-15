@@ -1,12 +1,34 @@
-import { Inter, Montserrat, Scheherazade_New } from "next/font/google";
+import { Montserrat } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
-const scheherazade_new = Scheherazade_New({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+
+const scheherazade_new = localFont({
+  src: [
+    {
+      path: "../../../public/fonts/ScheherazadeNew-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/ScheherazadeNew-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/ScheherazadeNew-SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/ScheherazadeNew-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
 });
 
 export const generateMetadata = async ({ params: { lang } }) => {
