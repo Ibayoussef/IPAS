@@ -21,6 +21,20 @@ export default function TestimonialsSection({ data, onChange, lang }) {
     setLocalData((prev) => ({ ...prev, testi: newTestimonials }));
   };
 
+  const addTestimonial = () => {
+    setLocalData((prev) => ({
+      ...prev,
+      testi: [...prev.testi, { name: { [lang]: "" }, text: { [lang]: "" } }],
+    }));
+  };
+
+  const removeTestimonial = (index) => {
+    setLocalData((prev) => ({
+      ...prev,
+      testi: prev.testi.filter((_, i) => i !== index),
+    }));
+  };
+
   const handleSave = () => {
     onChange(localData);
   };
@@ -86,10 +100,22 @@ export default function TestimonialsSection({ data, onChange, lang }) {
               }
               placeholder="Testimonial text"
               rows="4"
-              className="block w-full px-4 py-3 text-lg text-black border-2 border-orange-300 rounded-xl focus:ring-orange-500 focus:border-orange-500"
+              className="block w-full px-4 py-3 mb-4 text-lg text-black border-2 border-orange-300 rounded-xl focus:ring-orange-500 focus:border-orange-500"
             ></textarea>
+            <button
+              onClick={() => removeTestimonial(index)}
+              className="px-4 py-2 text-white bg-red-500 rounded-xl hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 transition duration-300 ease-in-out"
+            >
+              Remove Testimonial
+            </button>
           </div>
         ))}
+        <button
+          onClick={addTestimonial}
+          className="px-6 py-3 mt-4 text-lg font-semibold text-white bg-green-500 rounded-xl hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300 transition duration-300 ease-in-out"
+        >
+          Add Testimonial
+        </button>
       </div>
       <div className="mt-8 text-center">
         <button

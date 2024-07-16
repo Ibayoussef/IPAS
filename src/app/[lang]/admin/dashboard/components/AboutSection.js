@@ -17,6 +17,7 @@ export default function AboutSection({ data, onChange, lang }) {
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
+
     if (file) {
       setIsUploading(true);
       const formData = new FormData();
@@ -34,8 +35,13 @@ export default function AboutSection({ data, onChange, lang }) {
         }
 
         const result = await response.json();
+        const updatedData = {
+          ...localData,
+          asset: result.url,
+        };
 
-        setLocalData((prev) => ({ ...prev, asset: result.url }));
+        setLocalData(updatedData);
+        onChange(updatedData);
       } catch (error) {
         console.error("Error uploading image:", error);
         alert("Failed to upload image. Please try again.");

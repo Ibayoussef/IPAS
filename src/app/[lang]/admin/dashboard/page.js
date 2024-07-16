@@ -107,7 +107,6 @@ export default function Dashboard({ params: { lang } }) {
 
     fetchData();
   }, []);
-  console.log(data);
   useEffect(() => {
     if (!isLoggedIn) {
       router.push("/admin");

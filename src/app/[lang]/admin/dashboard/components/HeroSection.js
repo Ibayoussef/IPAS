@@ -37,7 +37,13 @@ export default function HeroSection({ data, onChange, lang }) {
         const result = await response.json();
 
         setPreviewUrl(result.url);
-        setLocalData((prev) => ({ ...prev, heroImg: result.url }));
+        const updatedData = {
+          ...localData,
+          heroImg: result.url,
+        };
+
+        setLocalData(updatedData);
+        onChange(updatedData);
       } catch (error) {
         console.error("Error uploading image:", error);
         alert("Failed to upload image. Please try again.");
