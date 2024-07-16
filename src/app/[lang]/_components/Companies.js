@@ -25,7 +25,7 @@ const Companies = ({ data, links, lang }) => {
           {companylogos.map((p, index) => (
             <img
               key={index}
-              className="w-28 h-auto"
+              className="w-28 h-auto opacity-60"
               src={p}
               alt={`company-img-${index}`}
             />
@@ -46,7 +46,7 @@ const Companies = ({ data, links, lang }) => {
                   width={1000}
                   height={1000}
                   alt={`company-img-${index}`}
-                  className="w-full h-[40px] object-contain"
+                  className="w-full h-[40px] object-contain opacity-60"
                 />
               </SwiperSlide>
             ))}
