@@ -54,8 +54,8 @@ export default function ContactSection({ data, onChange, lang }) {
         }
 
         const result = await response.json();
-        const imageUrl = `/images/${result.filename}`;
-        setLocalData((prev) => ({ ...prev, asset: imageUrl }));
+
+        setLocalData((prev) => ({ ...prev, asset: result.url }));
       } catch (error) {
         console.error("Error uploading image:", error);
         alert("Failed to upload image. Please try again.");

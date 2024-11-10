@@ -36,13 +36,15 @@ export default function CompaniesSection({ data, onChange, lang }) {
         }
 
         const result = await response.json();
-        uploadedUrls.push(`/images/${result.filename}`);
+        uploadedUrls.push(result.url);
       }
+      const updatedData = {
+        ...localData,
+        companylogos: [...localData.companylogos, ...uploadedUrls],
+      };
 
-      setLocalData((prev) => ({
-        ...prev,
-        companylogos: [...prev.companylogos, ...uploadedUrls],
-      }));
+      setLocalData(updatedData);
+      onChange(updatedData);
     } catch (error) {
       console.error("Error uploading images:", error);
       alert("Failed to upload one or more images. Please try again.");

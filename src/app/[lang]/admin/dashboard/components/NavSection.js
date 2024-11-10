@@ -54,9 +54,8 @@ export default function NavSection({ data, onChange, lang }) {
         }
 
         const result = await response.json();
-        const imageUrl = `/images/${result.filename}`;
-        setPreviewUrl(imageUrl);
-        setLocalData((prev) => ({ ...prev, logo: imageUrl }));
+        setPreviewUrl(result.url);
+        setLocalData((prev) => ({ ...prev, logo: result.url }));
       } catch (error) {
         console.error("Error uploading image:", error);
         alert("Failed to upload image. Please try again.");
@@ -75,44 +74,8 @@ export default function NavSection({ data, onChange, lang }) {
       <h2 className="mb-6 text-4xl font-bold text-gray-800">
         Navigation Section
       </h2>
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-        <div className="p-6 bg-white rounded-xl shadow-md">
-          <label className="block mb-3 text-xl font-semibold text-gray-700">
-            Logo
-          </label>
-          <div className="flex flex-col items-center space-y-4">
-            <div className="relative w-40 h-40 overflow-hidden border-4 border-blue-300 rounded-2xl">
-              {previewUrl ? (
-                <Image
-                  src={previewUrl}
-                  alt="Logo preview"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              ) : (
-                <div className="flex items-center justify-center w-full h-full bg-gray-100">
-                  <span className="text-lg text-gray-400">No image</span>
-                </div>
-              )}
-            </div>
-            <div>
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleImageUpload}
-                accept="image/*"
-                className="hidden"
-              />
-              <button
-                onClick={triggerFileInput}
-                className="px-6 py-3 text-lg font-semibold text-white bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
-              >
-                Upload Logo
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="space-y-6">
+      <div className="grid grid-cols-1 w-full">
+        <div className="w-full space-y-6">
           <div className="p-6 bg-white rounded-xl shadow-md">
             <label
               htmlFor="phone"

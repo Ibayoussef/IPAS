@@ -21,11 +21,11 @@ const Companies = ({ data, links, lang }) => {
         {title[lang]}
       </h4>
       <div className="w-full mt-4 overflow-hidden">
-        <div className="hidden md:flex flex-row flex-wrap items-center justify-center gap-[108px]">
+        <div className="hidden md:flex flex-row absolute left-1/2 -translate-x-1/2 mt-[16px]  items-center justify-center gap-[108px]">
           {companylogos.map((p, index) => (
             <img
               key={index}
-              className="w-28 h-auto"
+              className="w-28 h-auto opacity-60"
               src={p}
               alt={`company-img-${index}`}
             />
@@ -46,7 +46,7 @@ const Companies = ({ data, links, lang }) => {
                   width={1000}
                   height={1000}
                   alt={`company-img-${index}`}
-                  className="w-full h-[40px] object-contain"
+                  className="w-full h-[40px] object-contain opacity-60"
                 />
               </SwiperSlide>
             ))}
