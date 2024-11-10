@@ -56,8 +56,8 @@ const Navbar = ({ data, lang }) => {
             {menuOpen && (
               <svg
                 className="w-full h-full"
-                width="59"
-                height="32"
+                width="129"
+                height="102"
                 viewBox="0 0 59 32"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -154,8 +154,8 @@ const Navbar = ({ data, lang }) => {
             )}
             {!menuOpen && (
               <svg
-                width="59"
-                height="32"
+                width="129"
+                height="102"
                 viewBox="0 0 59 32"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -255,7 +255,7 @@ const Navbar = ({ data, lang }) => {
         <AnimatePresence>
           {menuOpen && (
             <motion.div
-              className="fixed border-t md:pt-[79px]  max-md:pt-[69px] border-primary top-[48px] px-[36px]  left-0 z-[999999] flex flex-col w-full bg-secondary h-full"
+              className="fixed border-t md:pt-[40px]  max-md:pt-[69px] border-primary top-[110px] px-[36px]  left-0 z-[999999] flex flex-col w-full bg-secondary h-full"
               variants={menuVariants}
               initial="closed"
               animate="open"
@@ -364,15 +364,15 @@ const Navbar = ({ data, lang }) => {
         <div className="flex-row items-center hidden gap-8 lg:flex">
           {links?.map((link, i) => (
             <AnimatedLink href={`#${link[lang]}`} key={i}>
-              <p className="text-xs font-medium uppercase transition-all text-secondary">
+              <p className="text-base font-medium uppercase transition-all text-secondary">
                 {link[lang]}
               </p>
             </AnimatedLink>
           ))}
         </div>
-        <div className="hidden lg:flex nav__item">
+        <div className="hidden lg:flex nav__item h-full">
           <div
-            className="relative flex flex-row items-center gap-2 p-6 cursor-pointer "
+            className="relative h-full flex flex-row items-center gap-2 p-6 cursor-pointer "
             onClick={() => setOpen((prev) => !prev)}
           >
             <p
@@ -414,7 +414,7 @@ const Navbar = ({ data, lang }) => {
           </div>
           <Link
             href="#contact"
-            className="p-6  text-primary underline font-semibold bg-secondary border-[#121B2466] border-x"
+            className="p-6 h-full text-primary underline font-semibold bg-secondary border-[#121B2466] border-x"
           >
             {email}
           </Link>
