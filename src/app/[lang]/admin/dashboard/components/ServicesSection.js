@@ -1,6 +1,5 @@
 "use client";
 import { useState, useRef } from "react";
-import Image from "next/image";
 
 export default function ServicesSection({ data, onChange, lang }) {
   const [localData, setLocalData] = useState(data);
@@ -136,10 +135,10 @@ export default function ServicesSection({ data, onChange, lang }) {
               <div className="col-span-1">
                 <div className="relative w-full h-48 mb-4 overflow-hidden border-4 border-green-300 rounded-xl">
                   {item.img ? (
-                    <Image
+                    <img
+                    lazy
                       src={item.img}
-                      width={1000}
-                      height={1000}
+                    
                       alt={`Dropdown ${index + 1}`}
                       objectFit="cover"
                     />

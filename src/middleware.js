@@ -2,7 +2,7 @@ let locales = ["en", "fr"];
 
 // Get the preferred locale, similar to the above or using a library
 function getLocale(request) {
-  return "en";
+  return "fr";
 }
 
 export function middleware(request) {

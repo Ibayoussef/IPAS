@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { AnimatedLink } from "./Elements/AnimatedLink";
 function Footer({ data, lang }) {
   const { logo, links } = data;
@@ -42,7 +41,7 @@ function Footer({ data, lang }) {
       </div>
       <div className="flex flex-col gap-8 max-md:gap-[16px] sm:items-center sm:flex-row">
         {links?.map((link, i) => (
-          <AnimatedLink href={`#${link}`} key={i}>
+          <AnimatedLink href={`#${link[lang]}`} key={i}>
             <p className="text-xs font-medium max-md:text-[12px] uppercase transition-all text-secondary">
               {link[lang]}
             </p>

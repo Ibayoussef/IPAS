@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import Input from "./Elements/Input";
 import { motion } from "framer-motion";
 function Contact({ data, links, lang }) {
@@ -48,12 +47,11 @@ function Contact({ data, links, lang }) {
         </motion.p>
       </div>
       <div>
-        <Image
+        <img
           className="hidden w-full h-full lg:block"
           src={asset}
           alt={"contact img"}
-          width={1000}
-          height={1000}
+         lazy
         />
       </div>
     </div>

@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 function About({ data, links, lang }) {
   const { title, description, asset } = data;
@@ -32,7 +31,7 @@ function About({ data, links, lang }) {
         )}
       </div>
       <div className="relative">
-        <Image src={asset} alt="guy picture" width={1000} height={1000} />
+        <img lazy src={asset} alt="guy picture"  />
         <svg
           className="absolute w-full -translate-x-1/2 -bottom-44 left-1/2 lg:translate-x-0 lg:-bottom-24 lg:-left-24"
           width="1103"

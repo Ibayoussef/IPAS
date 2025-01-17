@@ -1,6 +1,5 @@
 "use client";
 import { useState, useRef } from "react";
-import Image from "next/image";
 
 export default function HeroSection({ data, onChange, lang }) {
   const [localData, setLocalData] = useState(data);
@@ -104,7 +103,8 @@ export default function HeroSection({ data, onChange, lang }) {
           <div className="flex flex-col items-center space-y-4">
             <div className="relative w-full h-48 overflow-hidden border-4 border-indigo-300 rounded-xl">
               {previewUrl ? (
-                <Image
+                <img
+                lazy
                   src={previewUrl}
                   alt="Hero image preview"
                   layout="fill"

@@ -1,6 +1,5 @@
 "use client";
 import { useState, useRef } from "react";
-import Image from "next/image";
 
 export default function ContactSection({ data, onChange, lang }) {
   const [localData, setLocalData] = useState(data);
@@ -84,8 +83,9 @@ export default function ContactSection({ data, onChange, lang }) {
           <div className="flex flex-col items-center space-y-4">
             <div className="relative w-64 h-64 overflow-hidden border-4 border-red-300 rounded-2xl">
               {localData.asset ? (
-                <Image
+                <img
                   src={localData.asset}
+                  lazy
                   alt="Contact section asset"
                   layout="fill"
                   objectFit="cover"

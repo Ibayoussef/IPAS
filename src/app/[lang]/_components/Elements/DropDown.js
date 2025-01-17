@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
+
 import { motion, AnimatePresence } from "framer-motion";
 
 export const Dropdown = ({ title, description, img }) => {
@@ -53,12 +53,11 @@ export const Dropdown = ({ title, description, img }) => {
             className="flex flex-row flex-wrap items-center gap-8 pt-[10px] pb-[21px] overflow-hidden border-b lg:gap-40 border-secondary"
           >
             <div className="w-full relative lg:w-1/2 max-md:h-[412px] md:h-[500px]">
-              <Image
+              <img
                 src={img}
                 className="w-full absolute top-0 left-0 object-cover h-full"
                 alt={"service img"}
-                width={1000}
-                height={1000}
+               lazy
               />
             </div>
             <p className="text-black max-md:mt-[60px]  leading-5 w-full lg:w-[40%]">

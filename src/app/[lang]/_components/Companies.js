@@ -1,6 +1,5 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Image from "next/image";
 // Import Swiper styles
 import "swiper/css";
 
@@ -24,6 +23,7 @@ const Companies = ({ data, links, lang }) => {
         <div className="hidden md:flex flex-row absolute left-1/2 -translate-x-1/2 mt-[16px]  items-center justify-center gap-[108px]">
           {companylogos.map((p, index) => (
             <img
+            lazy
               key={index}
               className="w-28 h-auto opacity-60"
               src={p}
@@ -41,10 +41,9 @@ const Companies = ({ data, links, lang }) => {
           >
             {companylogos.map((logo, index) => (
               <SwiperSlide key={index}>
-                <Image
+                <img
                   src={logo}
-                  width={1000}
-                  height={1000}
+                  lazy
                   alt={`company-img-${index}`}
                   className="w-full h-[40px] object-contain opacity-60"
                 />

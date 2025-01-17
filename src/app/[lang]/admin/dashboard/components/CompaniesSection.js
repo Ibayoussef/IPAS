@@ -1,6 +1,5 @@
 "use client";
 import { useState, useRef } from "react";
-import Image from "next/image";
 
 export default function CompaniesSection({ data, onChange, lang }) {
   const [localData, setLocalData] = useState(data);
@@ -117,11 +116,10 @@ export default function CompaniesSection({ data, onChange, lang }) {
               key={index}
               className="relative p-4 border-2 border-blue-200 rounded-xl"
             >
-              <Image
+              <img
                 src={logo}
                 alt={`Company logo ${index + 1}`}
-                width={150}
-                height={75}
+               lazy
                 objectFit="contain"
                 className="mx-auto"
               />

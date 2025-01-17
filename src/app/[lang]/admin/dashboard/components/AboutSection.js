@@ -1,6 +1,5 @@
 "use client";
 import { useState, useRef } from "react";
-import Image from "next/image";
 
 export default function AboutSection({ data, onChange, lang }) {
   const [localData, setLocalData] = useState(data);
@@ -102,7 +101,8 @@ export default function AboutSection({ data, onChange, lang }) {
           <div className="flex flex-col items-center space-y-4 md:flex-row md:space-x-8 md:space-y-0">
             <div className="relative w-64 h-64 overflow-hidden border-4 border-purple-300 rounded-2xl">
               {localData.asset ? (
-                <Image
+                <img
+                lazy
                   src={localData.asset}
                   alt="About section asset"
                   layout="fill"

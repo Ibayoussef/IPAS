@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useState, useRef } from "react";
 
 export default function NavSection({ data, onChange, lang }) {

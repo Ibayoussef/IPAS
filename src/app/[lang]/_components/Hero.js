@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -46,11 +45,11 @@ function Hero({ data, links, lang }) {
       </div>
       <div className="absolute bottom-0 md:-right-[150px] xl:right-0 md:-translate-y-1/2 right-0 w-full md:w-3/4 h-[80%] md:top-1/2">
         <div className="absolute z-30 w-full h-full top-0 right-0 bg-black opacity-50"></div>
-        <Image
+        <img
+        lazy
           className="relative z-20 top-0 left-0  object-cover w-full h-full"
           src={heroImg}
-          width={1000}
-          height={1000}
+          
           alt="hero-img"
         />
       </div>
