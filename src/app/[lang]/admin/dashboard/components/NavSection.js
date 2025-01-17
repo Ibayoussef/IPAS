@@ -21,8 +21,18 @@ export default function NavSection({ data, onChange, lang }) {
     setLocalData((prev) => ({ ...prev, links: newLinks }));
   };
 
+  const handlePolicyChange = (value) => {
+    setLocalData((prev) => ({
+      ...prev,
+      policy: {
+        ...prev.policy,
+        [lang]: value
+      }
+    }));
+  };
+
   const addLink = () => {
-    setLocalData((prev) => ({ ...prev, links: [...prev.links, ""] }));
+    setLocalData((prev) => ({ ...prev, links: [...prev.links, { en: "", fr: "" }] }));
   };
 
   const removeLink = (index) => {
@@ -137,6 +147,22 @@ export default function NavSection({ data, onChange, lang }) {
           Add Link
         </button>
       </div>
+
+      <div className="mt-8 p-6 bg-white rounded-xl shadow-md">
+        <label className="block mb-4 text-2xl font-semibold text-gray-700">
+          Privacy Policy Content
+        </label>
+        <textarea
+          value={localData.policy?.[lang] || ''}
+          onChange={(e) => handlePolicyChange(e.target.value)}
+          className="w-full h-96 p-4 text-base text-black border-2 border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500"
+          placeholder={`Enter privacy policy content in ${lang === 'en' ? 'English' : 'French'}`}
+        />
+        <p className="mt-2 text-sm text-gray-600">
+          HTML formatting is supported for rich text content
+        </p>
+      </div>
+
       <div className="mt-8 text-center">
         <button
           onClick={handleSave}

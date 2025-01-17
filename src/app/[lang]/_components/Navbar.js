@@ -59,16 +59,10 @@ const Navbar = ({ data, lang,sections }) => {
   const { logo, phone, email, links } = data;
 
   return (
-    <div
-      className={`w-full border-b ${
-        menuOpen ? "border-primary bg-secondary" : "border-secondary"
-      } `}
-    >
-      <nav
-        className={`${
-          menuOpen ? "fixed top-0 left-0 z-[999] bg-secondary" : "relative"
-        } flex flex-wrap py-[12px] md:py-4 lg:py-0 items-center justify-between w-full lg:justify-between`}
-      >
+    <div className={`w-full border-b ${menuOpen ? "border-primary bg-secondary" : "border-secondary"}`}>
+    <nav className={`${
+      menuOpen ? "fixed top-0 left-0 z-[999] bg-secondary" : "relative"
+    } flex flex-wrap items-stretch h-full w-full lg:justify-between`}>
         <div className="flex items-center justify-between object-contain h-full bg-transparent ms-20 w-fit lg:w-auto">
           <Link className="object-contain w-full h-full" href="/">
             {menuOpen && (
@@ -256,61 +250,61 @@ const Navbar = ({ data, lang,sections }) => {
             </AnimatedLink>
           ))}
         </div>
-        <div className="hidden lg:flex nav__item h-full">
-          <div
-            className="relative h-full flex flex-row items-center gap-2 p-6 cursor-pointer "
-            onClick={() => setOpen((prev) => !prev)}
-          >
-            <p
-              className={`font-semibold underline uppercase ${
-                menuOpen ? "text-primary" : "text-secondary"
-              }`}
-            >
-              {lang}
-            </p>
-            <svg
-              width="7"
-              height="5"
-              viewBox="0 0 7 5"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                className={menuOpen ? "fill-primary" : "fill-secondary"}
-                d="M2.97 3.93949L3.3942 4.36369L6.7884 0.969494L5.94 0.121094L3.3942 2.66629L0.8484 0.121094L0 0.969494L2.97 3.93949Z"
-                fill="#121B24"
-              />
-            </svg>
-            {open && (
-              <div className="absolute z-[9999] bg-primary left-0 flex flex-col w-full h-fit top-16 ">
-                <Link
-                  className="py-4 font-medium text-center cursor-pointer text-secondary"
-                  href="/fr"
-                >
-                  FR
-                </Link>
-                <Link
-                  className="py-4 font-medium text-center cursor-pointer text-secondary"
-                  href="/en"
-                >
-                  EN
-                </Link>
-              </div>
-            )}
-          </div>
-          <Link
-            href="#contact"
-            className="p-6 h-full text-primary underline font-semibold bg-secondary border-[#121B2466] border-x"
-          >
-            {email}
-          </Link>
-          <Link
-            href="#contact"
-            className="p-6 font-semibold underline text-primary bg-secondary "
-          >
-            {phone}
-          </Link>
-        </div>
+        <div className="hidden lg:flex flex-row nav__item ">
+  <div
+    className="relative   flex-grow flex flex-row items-center gap-2 p-6 cursor-pointer"
+    onClick={() => setOpen((prev) => !prev)}
+  >
+    <p
+      className={`font-semibold underline uppercase ${
+        menuOpen ? "text-primary" : "text-secondary"
+      }`}
+    >
+      {lang}
+    </p>
+    <svg
+      width="7"
+      height="5"
+      viewBox="0 0 7 5"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        className={menuOpen ? "fill-primary" : "fill-secondary"}
+        d="M2.97 3.93949L3.3942 4.36369L6.7884 0.969494L5.94 0.121094L3.3942 2.66629L0.8484 0.121094L0 0.969494L2.97 3.93949Z"
+        fill="#121B24"
+      />
+    </svg>
+    {open && (
+      <div className="absolute z-[9999] bg-primary left-0 flex flex-col w-full h-fit top-16">
+        <Link
+          className="py-4 font-medium text-center cursor-pointer text-secondary"
+          href="/fr"
+        >
+          FR
+        </Link>
+        <Link
+          className="py-4 font-medium text-center cursor-pointer text-secondary"
+          href="/en"
+        >
+          EN
+        </Link>
+      </div>
+    )}
+  </div>
+  <Link
+    href="#contact"
+    className="flex items-center px-6 h-full text-primary underline font-semibold bg-secondary border-[#121B2466] border-x hover:bg-secondary/90 transition-colors"
+  >
+    {email}
+  </Link>
+  <Link
+    href="#contact"
+    className="flex items-center px-6 h-full font-semibold underline text-primary bg-secondary hover:bg-secondary/90 transition-colors"
+  >
+    {phone}
+  </Link>
+</div>
       </nav>
     </div>
   );
