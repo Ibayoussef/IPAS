@@ -11,21 +11,18 @@ import AboutSection from "./components/AboutSection";
 import CompaniesSection from "./components/CompaniesSection";
 import ContactSection from "./components/ContactSection";
 import { getCookie } from "cookies-next";
-import { supabase } from "@/app/api/lib/supabaseClient";
+import { EyeIcon, EyeOffIcon } from 'lucide-react';
 
 const sections = [
   { name: "Navigation", component: NavSection, dataKey: "nav_section" },
   { name: "Hero", component: HeroSection, dataKey: "hero" },
   { name: "Services", component: ServicesSection, dataKey: "services" },
-  {
-    name: "Testimonials",
-    component: TestimonialsSection,
-    dataKey: "testimonials",
-  },
+  { name: "Testimonials", component: TestimonialsSection, dataKey: "testimonials" },
   { name: "About", component: AboutSection, dataKey: "about" },
   { name: "Companies", component: CompaniesSection, dataKey: "companies" },
   { name: "Contact", component: ContactSection, dataKey: "contact" },
 ];
+
 const LanguageSelector = ({ currentLang, onLanguageChange }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -84,29 +81,54 @@ const LanguageSelector = ({ currentLang, onLanguageChange }) => {
     </div>
   );
 };
+
 export default function Dashboard({ params: { lang } }) {
   const [data, setData] = useState(initialData);
   const [activeTab, setActiveTab] = useState(0);
   const [currentLang, setCurrentLang] = useState(lang);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [visibility, setVisibility] = useState({});
+  const [isSaving, setIsSaving] = useState(false);
+  
   const isLoggedIn = getCookie("isLoggedIn") === "true";
   const router = useRouter();
+
   useEffect(() => {
     async function fetchData() {
-      const { data: result, error } = await supabase
-        .from("app_data")
-        .select()
-        .eq("id", 1)
-        .single();
+      try {
+        const response = await fetch('/api/content');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
 
-      if (error) {
-        console.error("Error fetching data:", error);
-      } else {
-        setData(result.content);
+        const result = await response.json();
+        
+        if (result.data && result.data.content) {
+          setData(result.data.content);
+          // Initialize visibility state from the fetched data
+          const initialVisibility = {};
+          sections.forEach(section => {
+            initialVisibility[section.dataKey] = 
+              result.data.content[section.dataKey]?.isVisible ?? true;
+          });
+          setVisibility(initialVisibility);
+          setError(null);
+        } else {
+          throw new Error('Invalid data format');
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
       }
     }
 
     fetchData();
   }, []);
+
   useEffect(() => {
     if (!isLoggedIn) {
       router.push("/admin");
@@ -116,11 +138,32 @@ export default function Dashboard({ params: { lang } }) {
   const handleDataChange = (section, newData) => {
     setData((prevData) => ({
       ...prevData,
-      [section]: newData,
+      [section]: {
+        ...newData,
+        isVisible: visibility[section]
+      }
     }));
   };
 
+  const toggleVisibility = (sectionKey) => {
+    setVisibility(prev => {
+      const newVisibility = { ...prev, [sectionKey]: !prev[sectionKey] };
+      
+      // Update the data state with new visibility
+      setData(prevData => ({
+        ...prevData,
+        [sectionKey]: {
+          ...prevData[sectionKey],
+          isVisible: newVisibility[sectionKey]
+        }
+      }));
+      
+      return newVisibility;
+    });
+  };
+
   const handleSave = async () => {
+    setIsSaving(true);
     try {
       const response = await fetch("/api/save-data", {
         method: "POST",
@@ -134,10 +177,13 @@ export default function Dashboard({ params: { lang } }) {
         throw new Error("Failed to save data");
       }
 
+      const result = await response.json();
       alert("Data saved successfully!");
     } catch (error) {
       console.error("Error saving data:", error);
       alert("Error saving data. Please try again.");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -148,6 +194,22 @@ export default function Dashboard({ params: { lang } }) {
 
   if (!isLoggedIn) {
     return null;
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-red-500 text-xl">Error loading dashboard data. Please try again later.</div>
+      </div>
+    );
   }
 
   return (
@@ -166,17 +228,33 @@ export default function Dashboard({ params: { lang } }) {
           <div className="mb-6 overflow-x-auto">
             <div className="inline-flex space-x-2">
               {sections.map((section, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveTab(index)}
-                  className={`px-6 py-3 text-lg font-semibold rounded-xl transition duration-300 ease-in-out ${
-                    activeTab === index
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                  }`}
-                >
-                  {section.name}
-                </button>
+                <div key={index} className="flex items-center gap-2">
+                  <button
+                    onClick={() => setActiveTab(index)}
+                    className={`px-6 py-3 text-lg font-semibold rounded-xl transition duration-300 ease-in-out ${
+                      activeTab === index
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                    }`}
+                  >
+                    {section.name}
+                  </button>
+                  <button
+                    onClick={() => toggleVisibility(section.dataKey)}
+                    className={`p-2 rounded-lg transition-colors ${
+                      visibility[section.dataKey]
+                        ? 'bg-green-100 text-green-600 hover:bg-green-200'
+                        : 'bg-red-100 text-red-600 hover:bg-red-200'
+                    }`}
+                    title={visibility[section.dataKey] ? 'Section visible' : 'Section hidden'}
+                  >
+                    {visibility[section.dataKey] ? (
+                      <EyeIcon className="w-5 h-5" />
+                    ) : (
+                      <EyeOffIcon className="w-5 h-5" />
+                    )}
+                  </button>
+                </div>
               ))}
             </div>
           </div>
@@ -201,9 +279,17 @@ export default function Dashboard({ params: { lang } }) {
           <div className="mt-12 text-center">
             <button
               onClick={handleSave}
-              className="px-10 py-4 text-2xl font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+              disabled={isSaving}
+              className="px-10 py-4 text-2xl font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
-              Save All Changes
+              {isSaving ? (
+                <div className="flex items-center justify-center">
+                  <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                  Saving...
+                </div>
+              ) : (
+                'Save All Changes'
+              )}
             </button>
           </div>
         </div>

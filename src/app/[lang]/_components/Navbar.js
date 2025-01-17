@@ -4,9 +4,28 @@ import Link from "next/link";
 import { AnimatedLink } from "./Elements/AnimatedLink";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Navbar = ({ data, lang }) => {
+const Navbar = ({ data, lang,sections }) => {
   const [open, setOpen] = useState(false);
   const [menuOpen, setNebuOpen] = useState(false);
+ 
+  const filteredLinks = data.links.filter(link => {
+    const main = link.en;
+  
+    switch (main) {
+      case "Contact us":
+        return sections.contact?.isVisible !== false;
+      case "About":
+        return sections.about?.isVisible !== false;
+      case "Services":
+        return sections.services?.isVisible !== false;
+      case "Clients": // This maps to companies section
+        return sections.companies?.isVisible !== false;
+      case "Testimonials":
+        return sections.testimonials?.isVisible !== false;
+      default:
+        return true; // For any links that don't map to sections
+    }
+  });
   const menuVariants = {
     closed: {
       opacity: 0,
@@ -128,7 +147,7 @@ const Navbar = ({ data, lang }) => {
               animate="open"
               exit="closed"
             >
-              {links?.map((link, index) => (
+              {filteredLinks?.map((link, index) => (
                 <motion.div
                   key={index}
                   variants={linkVariants}
@@ -229,7 +248,7 @@ const Navbar = ({ data, lang }) => {
           </svg>
         </div>
         <div className="flex-row items-center hidden gap-8 lg:flex">
-          {links?.map((link, i) => (
+          {filteredLinks?.map((link, i) => (
             <AnimatedLink href={`#${link[lang]}`} key={i}>
               <p className="text-base font-medium uppercase transition-all text-secondary">
                 {link[lang]}

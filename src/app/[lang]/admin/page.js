@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { data } from "../data";
 import { setCookie } from "cookies-next";
 
 export default function LoginPage() {
@@ -12,19 +11,32 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
-    const user =
-      data.logins.username === email && data.logins.password === password;
 
-    if (user) {
-      setCookie("isLoggedIn", "true", { maxAge: 60 * 60 * 24 * 7 });
-      router.push("/admin/dashboard");
-    } else {
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        setCookie("isLoggedIn", "true", { maxAge: 60 * 60 * 24 * 7 }); // 7 days
+        router.push("/admin/dashboard");
+      } else {
+        const data = await response.json();
+        setError(data.message || "Invalid username or password");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+      console.error("Login error:", err);
+    } finally {
       setIsLoading(false);
-      setError("Invalid username or password");
     }
   };
 

@@ -1,4 +1,5 @@
 "use client";
+
 import About from "./_components/About";
 import Companies from "./_components/Companies";
 import Contact from "./_components/Contact";
@@ -11,7 +12,41 @@ import Loader from "./_components/Loader";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import StructuredData from "./_components/StruturedData";
-import { supabase } from "../api/lib/supabaseClient";
+
+const sections = [
+  {
+    key: "hero",
+    Component: Hero,
+    dataKey: "hero",
+  },
+  {
+    key: "services",
+    Component: Services,
+    dataKey: "services",
+  },
+  {
+    key: "companies",
+    Component: Companies,
+    dataKey: "companies",
+  },
+  {
+    key: "testimonials",
+    Component: Testimonials,
+    dataKey: "testimonials",
+    condition: (data) => data.testi.length > 0,
+  },
+  {
+    key: "about",
+    Component: About,
+    dataKey: "about",
+  },
+  {
+    key: "contact",
+    Component: Contact,
+    dataKey: "contact",
+  },
+];
+
 const AnimatedSection = ({ children }) => {
   return (
     <motion.div
@@ -27,22 +62,28 @@ const AnimatedSection = ({ children }) => {
 export default function Home({ params: { lang } }) {
   const [storyData, setStoryData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data, error } = await supabase
-          .from("app_data")
-          .select("content")
-          .eq("id", 1)
-          .single();
-
-        if (error) {
-          throw error;
+        const response = await fetch('/api/content');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
         }
 
-        setStoryData(data.content);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+        const data = await response.json();
+        
+        if (!data.data || !data.data.content) {
+          throw new Error('Invalid data format');
+        }
+
+        setStoryData(data.data.content);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError(err.message);
       } finally {
         setIsLoading(false);
       }
@@ -55,68 +96,49 @@ export default function Home({ params: { lang } }) {
     return <Loader />;
   }
 
-  if (!storyData) {
+  if (error || !storyData) {
     return (
       <div className="text-center text-white p-8">
         Failed to load data. Please try again later.
       </div>
     );
   }
+
+  // Always show navbar regardless of visibility
   return (
     <div className={`bg-primary overflow-hidden`}>
       <Navbar
         lang={lang}
+        sections={storyData}
         links={storyData.nav_section.links}
         data={storyData.nav_section}
       />
-      <AnimatedSection>
-        {" "}
-        <Hero
-          lang={lang}
-          links={storyData.nav_section.links}
-          data={storyData.hero}
-        />
-      </AnimatedSection>
-      <AnimatedSection>
-        {" "}
-        <Services
-          lang={lang}
-          links={storyData.nav_section.links}
-          data={storyData.services}
-        />
-      </AnimatedSection>
-      <AnimatedSection>
-        {" "}
-        <Companies
-          lang={lang}
-          links={storyData.nav_section.links}
-          data={storyData.companies}
-        />
-      </AnimatedSection>
-      <AnimatedSection>
-        {" "}
-        {storyData.testimonials.testi.length > 0 && (
-          <Testimonials lang={lang} data={storyData.testimonials} />
-        )}
-      </AnimatedSection>
-      <AnimatedSection>
-        {" "}
-        <About
-          lang={lang}
-          links={storyData.nav_section.links}
-          data={storyData.about}
-        />
-      </AnimatedSection>
-      <AnimatedSection>
-        {" "}
-        <Contact
-          lang={lang}
-          links={storyData.nav_section.links}
-          data={storyData.contact}
-        />
-      </AnimatedSection>
+      
+      {sections.map(({ key, Component, dataKey, condition }) => {
+        // Check if section data exists and is set to visible
+        const sectionData = storyData[dataKey];
+        if (!sectionData || sectionData.isVisible === false) {
+          return null;
+        }
+
+        // Check additional conditions if they exist
+        if (condition && !condition(sectionData)) {
+          return null;
+        }
+
+        return (
+          <AnimatedSection key={key}>
+            <Component
+              lang={lang}
+              links={storyData.nav_section.links}
+              data={sectionData}
+            />
+          </AnimatedSection>
+        );
+      })}
+
       <StructuredData />
-      <Footer lang={lang} data={storyData.nav_section} />
+      <Footer sections={storyData} lang={lang} data={storyData.nav_section} />
     </div>
   );
 }
