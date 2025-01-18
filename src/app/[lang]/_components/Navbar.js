@@ -62,7 +62,7 @@ const Navbar = ({ data, lang,sections }) => {
     <div className={`w-full border-b ${menuOpen ? "border-primary bg-secondary" : "border-secondary"}`}>
     <nav className={`${
       menuOpen ? "fixed top-0 left-0 z-[999] bg-secondary" : "relative"
-    } flex flex-wrap items-stretch h-full w-full lg:justify-between`}>
+    } flex flex-wrap items-stretch h-fit w-full justify-between`}>
         <div className="flex items-center justify-between object-contain h-full bg-transparent ms-20 w-fit lg:w-auto">
           <Link className="object-contain w-full h-full" href="/">
             {menuOpen && (
@@ -135,7 +135,7 @@ const Navbar = ({ data, lang,sections }) => {
         <AnimatePresence>
           {menuOpen && (
             <motion.div
-              className="fixed border-t md:pt-[40px]  max-md:pt-[69px] border-primary top-[110px] px-[36px]  left-0 z-[999999] flex flex-col w-full bg-secondary h-full"
+              className="fixed border-t md:pt-[40px]  max-md:pt-[69px] border-primary top-[100px] px-[36px]  left-0 z-[999999] flex flex-col w-full bg-secondary h-full"
               variants={menuVariants}
               initial="closed"
               animate="open"
