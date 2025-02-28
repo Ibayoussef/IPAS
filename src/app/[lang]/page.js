@@ -67,7 +67,8 @@ export default function Home({ params: { lang } }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('/api/content');
+        // Changed API endpoint to use PHP script instead of Next.js API route
+        const response = await fetch('https://ipadviceandservices.com/api/get-data.php');
         
         if (!response.ok) {
           throw new Error('Failed to fetch data');

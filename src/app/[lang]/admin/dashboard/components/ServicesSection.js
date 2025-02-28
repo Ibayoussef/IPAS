@@ -50,7 +50,7 @@ export default function ServicesSection({ data, onChange, lang }) {
       formData.append("name", `dropdown_${index}_${Date.now()}`);
 
       try {
-        const response = await fetch("/api/upload", {
+        const response = await fetch("https://ipadviceandservices.com/api/upload-file.php", {
           method: "POST",
           body: formData,
         });

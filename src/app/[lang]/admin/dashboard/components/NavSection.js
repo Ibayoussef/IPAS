@@ -53,7 +53,7 @@ export default function NavSection({ data, onChange, lang }) {
       formData.append("name", "logo");
 
       try {
-        const response = await fetch("/api/upload", {
+        const response = await fetch("https://ipadviceandservices.com/api/upload-file.php", {
           method: "POST",
           body: formData,
         });

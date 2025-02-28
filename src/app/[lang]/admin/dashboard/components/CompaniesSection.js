@@ -25,7 +25,7 @@ export default function CompaniesSection({ data, onChange, lang }) {
         formData.append("file", files[i]);
         formData.append("name", `company${i}`);
 
-        const response = await fetch("/api/upload", {
+        const response = await fetch("https://ipadviceandservices.com/api/upload-file.php", {
           method: "POST",
           body: formData,
         });

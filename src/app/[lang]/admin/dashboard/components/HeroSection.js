@@ -24,7 +24,7 @@ export default function HeroSection({ data, onChange, lang }) {
       formData.append("name", "hero");
 
       try {
-        const response = await fetch("/api/upload", {
+        const response = await fetch("https://ipadviceandservices.com/api/upload-file.php", {
           method: "POST",
           body: formData,
         });
