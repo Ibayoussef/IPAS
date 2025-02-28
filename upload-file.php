@@ -24,8 +24,9 @@ $dbConfig = [
 ];
 
 // File storage configuration
-$uploadDir = dirname(__FILE__) . '/../public/images/';
-$publicUrlBase = '/images/';
+// Modified to use the uploads folder in public_html
+$uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/';
+$publicUrlBase = '/uploads/';
 
 // Check if request method is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
