@@ -14,6 +14,22 @@ export default function AboutSection({ data, onChange, lang }) {
     }));
   };
 
+  const handleBigNameChange = (e) => {
+    const { value } = e.target;
+    setLocalData((prev) => ({
+      ...prev,
+      bigName: { ...prev.bigName, [lang]: value },
+    }));
+  };
+
+  const handleVisibilityChange = (e) => {
+    const { checked } = e.target;
+    setLocalData((prev) => ({
+      ...prev,
+      bigNamevisibility: checked,
+    }));
+  };
+
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
 
@@ -94,6 +110,40 @@ export default function AboutSection({ data, onChange, lang }) {
             className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-purple-300 rounded-xl focus:ring-purple-500 focus:border-purple-500"
           ></textarea>
         </div>
+        
+        {/* New Big Name field */}
+        <div className="p-6 bg-white rounded-2xl shadow-md">
+          <label
+            htmlFor="bigName"
+            className="block mb-2 text-xl font-semibold text-gray-700"
+          >
+            Big Name
+          </label>
+          <input
+            type="text"
+            name="bigName"
+            id="bigName"
+            value={localData.bigName ? localData.bigName[lang] || "" : ""}
+            onChange={handleBigNameChange}
+            className="block w-full px-4 py-3 mt-1 text-lg text-black border-2 border-purple-300 rounded-xl focus:ring-purple-500 focus:border-purple-500"
+          />
+          <div className="flex items-center mt-4">
+            <input
+              type="checkbox"
+              id="bigNameVisibility"
+              checked={localData.bigNamevisibility || false}
+              onChange={handleVisibilityChange}
+              className="w-5 h-5 text-purple-600 border-2 border-purple-300 rounded focus:ring-purple-500"
+            />
+            <label
+              htmlFor="bigNameVisibility"
+              className="ml-2 text-lg font-medium text-gray-700"
+            >
+              Show Big Name
+            </label>
+          </div>
+        </div>
+        
         <div className="col-span-1 p-6 md:col-span-2 bg-white rounded-2xl shadow-md">
           <label className="block mb-4 text-xl font-semibold text-gray-700">
             Asset Image

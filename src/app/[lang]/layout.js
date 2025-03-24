@@ -31,6 +31,7 @@ const scheherazade_new = localFont({
   ],
 });
 
+
 export const generateMetadata = async ({ params: { lang } }) => {
   const langto = lang || "fr";
 
